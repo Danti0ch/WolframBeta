@@ -1,55 +1,7 @@
 digraph Tree{
 0[shape = "record", label = "+"];
 0->1;
-1[shape = "record", label = "*"];
-1->2;
-2[shape = "record", label = "-"];
-2->3;
-3[shape = "record", label = "+"];
-3->4;
-4[shape = "record", label = "*"];
-4->5;
-5[shape = "record", label = "0"]
-4->6;
-6[shape = "record", label = "x"];
-3->7;
-7[shape = "record", label = "*"];
-7->8;
-8[shape = "record", label = "1"]
-7->9;
-9[shape = "record", label = "13"]
-2->10;
-10[shape = "record", label = "+"];
-10->11;
-11[shape = "record", label = "*"];
-11->12;
-12[shape = "record", label = "1"]
-11->13;
-13[shape = "record", label = "x"];
-10->14;
-14[shape = "record", label = "*"];
-14->15;
-15[shape = "record", label = "1"]
-14->16;
-16[shape = "record", label = "x"];
-1->17;
-17[shape = "record", label = "6"]
-0->18;
-18[shape = "record", label = "*"];
-18->19;
-19[shape = "record", label = "0"]
-18->20;
-20[shape = "record", label = "-"];
-20->21;
-21[shape = "record", label = "*"];
-21->22;
-22[shape = "record", label = "13"]
-21->23;
-23[shape = "record", label = "x"];
-20->24;
-24[shape = "record", label = "*"];
-24->25;
-25[shape = "record", label = "x"];
-24->26;
-26[shape = "record", label = "x"];
+1[shape = "record", label = "0"]
+0->2;
+2[shape = "record", label = "0"]
 }

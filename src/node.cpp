@@ -53,10 +53,10 @@ void NodeDestructor(Node** nod){
 
 	if(*nod == NULL)  return;
 
-	if((*nod)->is_left){
+	if((*nod)->is_left && (*nod)->parent != NULL){
 		(*nod)->parent->left = NULL;
 	}
-	else{
+	else if((*nod)->parent != NULL){
 		(*nod)->parent->right = NULL;
 	}
 

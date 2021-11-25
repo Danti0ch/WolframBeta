@@ -170,8 +170,11 @@ void ExprDif(Node* node){
 			MAKE_LEFT_MUL(node, mul1, mul2);
 			MAKE_RIGHT_MUL(node, mul1, mul2);
 
-			NodeDestructor(mul1);
-			NodeDestructor(mul2);
+			mul1->parent = NULL;
+			mul2->parent = NULL;
+
+			NodeDestructor(&mul1);
+			NodeDestructor(&mul2);
 			
 			ExprDif(node->left->left);
 			ExprDif(node->right->right);
@@ -184,15 +187,19 @@ void ExprDif(Node* node){
 			Node* divisible = node->left;
 			Node* divider = node->right;
 
-			MakeTransNode(divisible, '-', OPERATION);
+			MakeTransNode(node->left, '-', OPERATION);
 
-			MAKE_LEFT_MUL(node->left, divider, divisible);
-			MAKE_RIGHT_MUL(node->left, divider, divisible);
-			
-			MAKE_RIGHT_MUL(noderight, divider, divider);
+			MAKE_LEFT_MUL(node->left, divisible, divider);
 
-			NodeDestructor(divisible);
-			NodeDestructor(divider);
+			MAKE_RIGHT_MUL(node->left, divisible, divider);
+
+			MAKE_RIGHT_MUL(node, divider, divider);
+
+			divisible->parent = NULL;
+			divider->parent   = NULL;
+
+			NodeDestructor(&divisible);
+			NodeDestructor(&divider);
 			
 			ExprDif(node->left->left->left);
 			ExprDif(node->left->right->right);

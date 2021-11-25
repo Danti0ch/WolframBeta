@@ -3,12 +3,12 @@
 {												\
 	MakeLeftNode(parent, '*', OPERATION);		\
 	DuplNodeToLeft(parent->left, mul1);			\
-	DuplNodeToRight(parent->right, mul2);		\
+	DuplNodeToRight(parent->left, mul2);		\
 }
 
 #define MAKE_RIGHT_MUL(parent, mul1, mul2)		\
 {												\
 	MakeRightNode(parent, '*', OPERATION);		\
-	DuplNodeToLeft(parent->left, mul1);			\
+	DuplNodeToLeft(parent->right, mul1);			\
 	DuplNodeToRight(parent->right, mul2);		\
 }
