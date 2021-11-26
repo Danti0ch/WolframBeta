@@ -8,7 +8,6 @@
 const int MAX_LOG_NAME_LEN = 256;
 
 enum class LOG_TYPE{
-
 	INVALID,
 	ERROR,
 	INFO

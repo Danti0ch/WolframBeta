@@ -23,27 +23,26 @@ const char* get_type_string(NodeType type);
 
 //--------------PUBLIC-FUNCTIONS-DEFINITIONS-----------------------------------------
 
-Node* MakeLeftNode(Node* parent, T_Node val, NodeType type){
+Node* NodeConstructor(Node* parent, T_Node val, NodeType type, NODE_PLACE place){
 
 	Node* nod = make_node(val, type);
+	if(nod == NULL){
+		TO_LOG(LOG_TYPE::ERROR, "node creation\n")
+		return NULL;
+	}
 
-	nod->is_left  = true;
 	nod->parent   = parent;
-	parent->left  = nod;
 
-	return nod;
-}
+	if(place == NODE_PLACE::LEFT){
+		nod->is_left  = true;
+		parent->left  = nod;
+	}
+	else{
+		nod->is_left  = false;
+		parent->right = nod;
+	}
 
-//------------------------------------------------------------------
-
-Node* MakeRightNode(Node* parent, T_Node val, NodeType type){
-
-	Node* nod = make_node(val, type);
-
-	nod->is_left  = false;
-	nod->parent   = parent;
-	parent->right = nod;
-
+	ASSERT_OK(nod)
 	return nod;
 }
 
@@ -51,11 +50,15 @@ Node* MakeRightNode(Node* parent, T_Node val, NodeType type){
 
 void NodeDestructor(Node** nod){
 
+	assert(nod != NULL)
 	if(*nod == NULL)  return;
+	
+	ASSERT_OK(*nod);
 
 	if((*nod)->is_left && (*nod)->parent != NULL){
 		(*nod)->parent->left = NULL;
 	}
+
 	else if((*nod)->parent != NULL){
 		(*nod)->parent->right = NULL;
 	}
@@ -69,18 +72,41 @@ void NodeDestructor(Node** nod){
 
 //------------------------------------------------------------------
 
-Node* DuplNodeToRight(Node* parent, Node* source_node){
+Node* CopyNode(Node* parent, Node* source_node, NODE_PLACE place){
 
 	assert(parent 		!= NULL);
 	assert(source_node 	!= NULL);
 
-	Node* copied_node    = dupl_node(source_node);
-	
-	parent->right        = copied_node;
-	copied_node->parent  = parent;
-	copied_node->is_left = false;
+	ASSERT_OK(parent)
+	ASSERT_OK(source_node)
 
-	return copied_node;
+	Node* new_node = make_node(source_node->value, source_node->type);
+
+	if(new_node == NULL){
+		TO_LOG(LOG_TYPE::ERROR, "node creation\n")
+		return NULL;
+	}
+
+	if(source_node->left != NULL){
+		new_node->left = dupl_node(source_node->left);
+
+		new_node->left->parent  = new_node;
+		new_node->left->is_left = true;
+	}
+
+	if(source_node->right != NULL){
+		new_node->right = dupl_node(source_node->right);
+
+		new_node->right->parent  = new_node;
+		new_node->right->is_left = true;
+	}
+	
+	parent->right     = copied_node;
+	new_node->parent  = parent;
+	new_node->is_left = false;
+
+	ASSERT_OK(new_node)
+	return new_node;
 }
 
 //------------------------------------------------------------------
@@ -172,6 +198,11 @@ void ShowNode(Node* nod){
 Node* make_node(T_Node val, NodeType type){
 
 	Node* nod = (Node*)calloc(1, sizeof(Node));
+
+	if(nod == NULL){
+		TO_LOG(LOG_TYPE::ERROR, "mem alloc\n");
+		return NULL;
+	}
 
 	nod->value = val;
 	nod->type  = type;

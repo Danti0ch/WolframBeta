@@ -1,4 +1,10 @@
 #include "stdio.h"
+
+#define LOG_SOURCE
+#if LOG_SOURCE == 1
+
+#elif LOG_SOURCE == 2
+
 #include "expression.h"
 
 int main(){

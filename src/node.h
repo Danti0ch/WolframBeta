@@ -10,6 +10,11 @@ const char DUMP_IMAGE_NAME[40] = "img.png";
 const int MAX_FUNC_NAME_LEN = 50;
 const int N_FUNCS           = 4;
 
+enum NODE_PLACE{
+	LEFT,
+	RIGHT
+};
+
 enum FUNC_CODES{
 
 	INVALID_CODE = -1,
@@ -47,7 +52,6 @@ struct Node{
 	bool     is_left;
 };
 
-// const Node*  NODE_POISON = (Node*)7;
 const T_Node VAL_POISON  = 0;
 
 const char   OPERATIONS_SYMB[10] = "+-/*^";
@@ -55,9 +59,7 @@ const int    N_OPERATIONS = strlen(OPERATIONS_SYMB);
 
 //------------PUBLIC-FUNCTIONS-DECLARATION------------------------
 
-Node* MakeLeftNode(Node* parent, T_Node val, NodeType type);
-
-Node* MakeRightNode(Node* parent, T_Node val, NodeType type);
+Node* NodeConstructor(Node* parent, T_Node val, NodeType type, NodePlace place);
 
 void NodeDestructor(Node** nod);
 
