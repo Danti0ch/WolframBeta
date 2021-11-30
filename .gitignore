@@ -1,0 +1,11 @@
+
+*.2021)
+*.teh
+*.pdf
+build/tmp.aux
+*.dot
+*.log
+*.png
+*.png
+*.png
+build/tmp.dot

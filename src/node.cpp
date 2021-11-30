@@ -3,70 +3,117 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <cstdarg>
-#include <windows.h>
+
+#include "log.h"
 
 //------------LOCAL-FUNCTIONS-DECLARATION----------------------------------
 
-Node* make_node(T_Node val, NodeType type);
+/**
+ * выделяет память под узел и присваивает ему значение и тип
+ */
+Node* generate_node(T_Node val, NODE_TYPE type);
 
-void generate_dot(Node* nod, char const * file_name);
+/**
+ * создаёт dot файл с информацией об узле node и его потомкаха
+ */
+void generate_dot(Node* node, char const * file_name);
 
+/**
+ * записывает в дот файл узел node со всеми потомками
+ */
 void write_node_to_dot(Node const * nod, int* n_node, FILE* output_file);
 
+/**
+ * создаёт картинку для дот файла
+ *
+ * \param input_file_name имя дот файлa
+ * \param output_file_name имя картинки
+ */
 void generate_image(char const * input_file_name, char const * output_file_name);
 
+/**
+ * выполняет команду, указанную в строку cmd_str в консоли
+ */
 void execute_term_cmd(char const * cmd_str, ...);
 
-Node* dupl_node(Node* source_node);
-
-const char* get_type_string(NodeType type);
+/**
+ * конвертируют код типа узла в строку
+ */
+const char* get_type_string(NODE_TYPE type);
 
 //--------------PUBLIC-FUNCTIONS-DEFINITIONS-----------------------------------------
 
-Node* NodeConstructor(Node* parent, T_Node val, NodeType type, NODE_PLACE place){
+Node* NodeConstructor(Node* parent, T_Node val, NODE_TYPE type, NODE_PLACE place){
 
-	Node* nod = make_node(val, type);
-	if(nod == NULL){
-		TO_LOG(LOG_TYPE::ERROR, "node creation\n")
-		return NULL;
-	}
+	Node* node = generate_node(val, type);
 
-	nod->parent   = parent;
+	if(node == NULL) return NULL;
+
+	node->parent   = parent;
 
 	if(place == NODE_PLACE::LEFT){
-		nod->is_left  = true;
-		parent->left  = nod;
+		node->is_left  = true;
+		if(parent != NULL) parent->left  = node;
 	}
 	else{
-		nod->is_left  = false;
-		parent->right = nod;
+		node->is_left  = false;
+		if(parent != NULL) parent->right = node;
 	}
 
-	ASSERT_OK(nod)
-	return nod;
+	ToLog(LOG_TYPE::INFO, "created Node %p", node);
+	return node;
 }
 
 //------------------------------------------------------------------
 
-void NodeDestructor(Node** nod){
+void NodeDestructor(Node* node){
 
-	assert(nod != NULL)
-	if(*nod == NULL)  return;
+	assert(node != NULL);
+
+	if(node == NULL)  return;
 	
-	ASSERT_OK(*nod);
-
-	if((*nod)->is_left && (*nod)->parent != NULL){
-		(*nod)->parent->left = NULL;
+	if(node->is_left && node->parent != NULL){
+		node->parent->left = NULL;
 	}
 
-	else if((*nod)->parent != NULL){
-		(*nod)->parent->right = NULL;
+	else if(node->parent != NULL){
+		node->parent->right = NULL;
 	}
 
-	free(*nod);
+	free(node);
 
-	*nod = NULL;
+	ToLog(LOG_TYPE::INFO, "destruct Node %p", node);
 
+	return;
+}
+
+//------------------------------------------------------------------
+
+void NodeFullDestructor(Node* nod){
+
+	assert(nod != NULL);
+
+	if(nod->left != NULL) NodeFullDestructor(nod->left);
+
+	if(nod->right != NULL) NodeFullDestructor(nod->right);
+
+	NodeDestructor(nod);
+	
+	ToLog(LOG_TYPE::INFO, "destruct Node %p", *nod);
+	
+	return;
+}
+
+//------------------------------------------------------------------
+
+void RemoveDescendants(Node* node){
+
+	assert(node != NULL);
+
+	if(node->left  != NULL) NodeFullDestructor(&(node->left));
+	if(node->right != NULL) NodeFullDestructor(&(node->right));
+
+	ToLog(LOG_TYPE::INFO, "destructed descedants from Node %p", node);
 	return;
 }
 
@@ -77,160 +124,123 @@ Node* CopyNode(Node* parent, Node* source_node, NODE_PLACE place){
 	assert(parent 		!= NULL);
 	assert(source_node 	!= NULL);
 
-	ASSERT_OK(parent)
-	ASSERT_OK(source_node)
-
-	Node* new_node = make_node(source_node->value, source_node->type);
+	Node* new_node = generate_node(source_node->value, source_node->type);
 
 	if(new_node == NULL){
-		TO_LOG(LOG_TYPE::ERROR, "node creation\n")
+		ToLog(LOG_TYPE::WARNING, "couldn't alloc mem");
 		return NULL;
 	}
 
 	if(source_node->left != NULL){
-		new_node->left = dupl_node(source_node->left);
+		CopyNode(new_node, source_node->left, NODE_PLACE::LEFT);
 
-		new_node->left->parent  = new_node;
-		new_node->left->is_left = true;
+		if(new_node->left != NULL){
+			new_node->left->parent  = new_node;
+			new_node->left->is_left = true;
+		}
 	}
 
 	if(source_node->right != NULL){
-		new_node->right = dupl_node(source_node->right);
+		CopyNode(new_node, source_node->right, NODE_PLACE::RIGHT);
 
-		new_node->right->parent  = new_node;
-		new_node->right->is_left = true;
+		if(new_node->right != NULL){
+			new_node->right->parent  = new_node;
+			new_node->right->is_left = true;
+		}
 	}
 	
-	parent->right     = copied_node;
-	new_node->parent  = parent;
-	new_node->is_left = false;
+	if(place == NODE_PLACE::LEFT){
+		parent->left  = new_node;
+		new_node->is_left = true;
+	}
+	else{
+		parent->right  = new_node;
+		new_node->is_left = false;
+	}
 
-	ASSERT_OK(new_node)
+	new_node->parent  = parent;
+
+	ToLog(LOG_TYPE::INFO, "copied Node %p to Node %p", source_node, new_node);
 	return new_node;
 }
 
 //------------------------------------------------------------------
 
-Node*  DuplNodeToLeft(Node* parent, Node* source_node){
+bool IsLeaf(const Node* node){
 
-	assert(parent 		!= NULL);
-	assert(source_node 	!= NULL);
-
-	Node* copied_node    = dupl_node(source_node);
-	
-	parent->left         = copied_node;
-	copied_node->parent  = parent;
-	copied_node->is_left = true;
-
-	return copied_node;
+	assert(node != NULL);
+	return node->left == NULL && node->right == NULL;
 }
 
 //------------------------------------------------------------------
 
-void MakeTransNode(Node* source_node, T_Node val, NodeType type){
+void ShowNode(Node* node){
 
-	assert(source_node      != NULL);
+	assert(node != NULL);
 
-	Node* trans_node = make_node(val, type);
-
-	if(source_node->is_left){
-		source_node->parent->left = trans_node;
-		source_node->is_left      = true;
-	}
-	else{
-		source_node->parent->right = trans_node;
-		source_node->is_left       = false;
-	}
-
-	trans_node->parent  = source_node->parent;
-	trans_node->left    = source_node;
-	source_node->parent = trans_node;
-
+	generate_dot(node, GVIZ_DOT_NAME);
+	generate_image(GVIZ_DOT_NAME, DUMP_IMAGE_NAME);
+	
+	system(DUMP_IMAGE_NAME);
+	ToLog(LOG_TYPE::INFO, "showed Node %p", node);	
 	return;
 }
 
 //------------------------------------------------------------------
 
-Node* dupl_node(Node* source_node){
+void MakeZeroNode(Node* node){
 
-	assert(source_node != NULL);
+	assert(node != NULL);
 
-	Node* node = make_node(source_node->value, source_node->type);
+	RemoveDescendants(node);
+	node->type  = CONSTANT;
+	node->value = 0;
 
-	if(source_node->left != NULL){
-		node->left = dupl_node(source_node->left);
-
-		node->left->parent  = node;
-		node->left->is_left = true;
-	}
-
-	if(source_node->right != NULL){
-		node->right = dupl_node(source_node->right);
-
-		node->right->parent  = node;
-		node->right->is_left = true;
-	}
-	
-	return node;
-}
-
-//------------------------------------------------------------------
-
-bool IsLeaf(const Node* nod){
-
-	return nod->left == NULL && nod->right == NULL;
-}
-
-//------------------------------------------------------------------
-
-void ShowNode(Node* nod){
-
-	assert(nod != NULL);
-
-	generate_dot(nod, GVIZ_DOT_NAME);
-	generate_image(GVIZ_DOT_NAME, DUMP_IMAGE_NAME);
-	
+	ToLog(LOG_TYPE::INFO, "descedants of Node %p removed", node);
 	return;
 }
 
 //--------------LOCAL-FUNCTIONS-DEFINITIONS-----------------------------------------
 
-Node* make_node(T_Node val, NodeType type){
+Node* generate_node(T_Node val, NODE_TYPE type){
 
-	Node* nod = (Node*)calloc(1, sizeof(Node));
+	Node* node  = (Node*)calloc(1, sizeof(Node));
 
-	if(nod == NULL){
-		TO_LOG(LOG_TYPE::ERROR, "mem alloc\n");
+	if(node == NULL){
+		ToLog(LOG_TYPE::WARNING, "couldn't alloc mem");
 		return NULL;
 	}
 
-	nod->value = val;
-	nod->type  = type;
+	node->value = val;
+	node->type  = type;
 
-	return nod;
+	return node;
 }
 
 //------------------------------------------------------------------
 
-void generate_dot(Node* nod, char const * file_name){
+void generate_dot(Node* node, char const * file_name){
 
-	assert(nod       != NULL);
+	assert(node       != NULL);
 	assert(file_name != NULL);
 
 	FILE* tmp_file = fopen(file_name, "w");
 
-	//TODO: log
-	assert(tmp_file != NULL);
+	if(tmp_file == NULL){
+		ToLog(LOG_TYPE::ERROR, "can't create/read file %s", file_name);
+		return;
+	}
 
 	fprintf(tmp_file, "digraph Tree{\n");
 
-	int n_node = 0;
-	write_node_to_dot(nod, &n_node, tmp_file);
+	int n_node = 0;	//< индекс узла
+	write_node_to_dot(node, &n_node, tmp_file);
 
 	fprintf(tmp_file, "}\n");
 
 	fclose(tmp_file);
 
+	ToLog(LOG_TYPE::INFO, "file %s was generated for Node %p", file_name, node);
 	return;
 }
 
@@ -238,17 +248,10 @@ void generate_dot(Node* nod, char const * file_name){
 
 void write_node_to_dot(Node const * nod, int* n_node, FILE* output_file){
 
-	assert(nod != NULL);
+	assert(nod         != NULL);
 	assert(output_file != NULL);
 
 	int cur_n_node = *n_node;
-
-	char nod_color[20] = "";
-
-	if(IsLeaf(nod))   strcpy(nod_color, "#7FB3D5");
-	else	          strcpy(nod_color, "#76D7C4");
-
-	// color fix
 
 	#if DEBUG == 1
 		if(nod->type == CONSTANT){
@@ -269,7 +272,7 @@ void write_node_to_dot(Node const * nod, int* n_node, FILE* output_file){
 											  nod->value);
 		}
 
-		else if(nod->type == VARIABLE || nod->type == FUNCTION || nod->type == OPERATION){
+		else if(nod->type == NODE_TYPE::VARIABLE || nod->type == NODE_TYPE::OPERATION){
 			fprintf(output_file, "%d[shape = \"record\", label = \"{"
 											  "adress:  %p |"
 											  "parent:  %p |"
@@ -286,18 +289,37 @@ void write_node_to_dot(Node const * nod, int* n_node, FILE* output_file){
 											  get_type_string(nod->type),
 											  (char)nod->value);
 		}
+		else if(nod->type == FUNCTION){
+			fprintf(output_file, "%d[shape = \"record\", label = \"{"
+											  "adress:  %p |"
+											  "parent:  %p |"
+											  "left:    %p |"
+											  "right:   %p |"
+											  "is_left: %s |"
+											  "type:    %s |"
+											  "value:   %s}\"];\n", 
+											  cur_n_node, nod,
+											  nod->parent,
+											  nod->left,
+											  nod->right,
+											  nod->is_left ? "true" : "false",
+											  get_type_string(nod->type),
+											  func_names[(int)nod->value]);
+		}
+
 	#else
 		if(nod->type == CONSTANT){
-			printf("%d[shape = \"record\", label = \"%.6lg\"]\n", cur_n_node, nod->value);
 			fprintf(output_file, "%d[shape = \"record\", label = \"%.6lg\"]\n", cur_n_node, nod->value);
 		}
 
-		else if(nod->type == VARIABLE || nod->type == FUNCTION || nod->type == OPERATION){
-			printf("%d[shape = \"record\", label = \"%c\"]\n", cur_n_node, (char)nod->value);
+		else if(nod->type == VARIABLE || nod->type == OPERATION){
 			fprintf(output_file, "%d[shape = \"record\", label = \"%c\"];\n", cur_n_node, (char)nod->value);
 		}
-	#endif
 
+		else if(nod->type == FUNCTION){
+			fprintf(output_file, "%d[shape = \"record\", label = \"%s\"];\n", cur_n_node, func_names[(int)nod->value]);
+		}
+	#endif
 
 	if(nod->left != NULL){
 		(*n_node)++;
@@ -311,6 +333,7 @@ void write_node_to_dot(Node const * nod, int* n_node, FILE* output_file){
 		write_node_to_dot(nod->right, n_node, output_file);
 	}
 
+	ToLog(LOG_TYPE::INFO, "Node %p was written to file", nod);
 	return;
 }
 
@@ -318,12 +341,13 @@ void write_node_to_dot(Node const * nod, int* n_node, FILE* output_file){
 
 void generate_image(char const * input_file_name, char const * output_file_name){
 
-	assert(input_file_name != NULL);
-	assert(output_file_name     != NULL);
-	assert(input_file_name != output_file_name);
+	assert(input_file_name   != NULL);
+	assert(output_file_name  != NULL);
+	assert(input_file_name   != output_file_name);
 
 	execute_term_cmd("dot -Tpng %s -o %s", input_file_name, output_file_name);
 
+	ToLog(LOG_TYPE::INFO, "Image %s has showen", output_file_name);
 	return;
 }
 
@@ -336,7 +360,7 @@ void execute_term_cmd(char const * cmd_str, ...){
 	va_list args;
     va_start(args, cmd_str);
 
-    int buflen = _vscprintf(cmd_str, args) + 1;
+    int buflen   = _vscprintf(cmd_str, args) + 1;
     char *buffer = (char*)calloc(buflen, sizeof(char));
 
     if (buffer != NULL){
@@ -345,18 +369,21 @@ void execute_term_cmd(char const * cmd_str, ...){
 
     va_end( args );
 
-    WinExec(buffer, 0);
+    // WinExec(buffer, 0);
+    system(buffer);
 
 	free(buffer);
 
 	return;
 }
 
-const char* get_type_string(NodeType type){
+//------------------------------------------------------------------
+
+const char* get_type_string(NODE_TYPE type){
 	
 	switch(type){
 		case INVALID:
-			return "wtf";
+			return "invalid";
 		case VARIABLE:
 			return "variable";
 		case CONSTANT:
@@ -366,7 +393,6 @@ const char* get_type_string(NodeType type){
 		case FUNCTION:
 			return "function";
 		default:
-			printf("some error msg log\n");
-			return "wtf";
+			return "invalid";
 	}
 }

@@ -1,21 +1,19 @@
 #include "stdio.h"
-
-#define LOG_SOURCE
-#if LOG_SOURCE == 1
-
-#elif LOG_SOURCE == 2
-
 #include "expression.h"
 
 int main(){
 
+	LogInit();
+
 	Expr expr = {};
 	ExprInit(&expr);
-	ExprRead(stdin, &expr);
-	
-	ExprDif(expr.root.left);
-	ShowExpr(&expr);
-	// SaveExpr(&expr); ???
 
+	ExprRead(stdin, &expr);
+	ShowExpr(&expr);
+	
+	WriteExpr(&expr);
+
+	// SaveExpr(&expr); ???
+	LogClose();
 	return 0;
 }

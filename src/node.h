@@ -1,36 +1,25 @@
+/**
+ * \file
+ * 	\brief Библиотека, в который реализована структура узла и методы, для работы с ней.
+ */
+
 #ifndef NODE_H
 #define NODE_H
 
 #include <string.h>
-#define meow printf("meeeeow\n");
 
-const char GVIZ_DOT_NAME[40]   = "tmp.dot";
-const char DUMP_IMAGE_NAME[40] = "img.png";
-
-const int MAX_FUNC_NAME_LEN = 50;
-const int N_FUNCS           = 4;
-
-enum NODE_PLACE{
+/**
+ * энам, для определения положения узла относительно родителя
+ */
+enum class NODE_PLACE{
 	LEFT,
 	RIGHT
 };
 
-enum FUNC_CODES{
-
-	INVALID_CODE = -1,
-	SIN_CODE,
-	COS_CODE,
-	EXP_CODE,
-	LOG_CODE
-};
-
-// upgrade mb
-const char func_names[][MAX_FUNC_NAME_LEN] = {
-	"sin", "cos", "exp", "log"
-};
-
-enum NodeType{
-
+/**
+ * энам, определяющий тип узла
+ */
+enum class NODE_TYPE{
 	INVALID,
 	VARIABLE,
 	CONSTANT,
@@ -40,37 +29,81 @@ enum NodeType{
 
 typedef double T_Node;
 
+/**
+ * структура узла
+ */
 struct Node{
 
-	Node*    left;
-	Node*    right;
-	Node*    parent;
+	Node*    left; 	 //!< указатель на левого потомка
+	Node*    right;  //!< указатель на правого потомка
+	Node*    parent; //!< указатель на родителя
 
-	T_Node   value;
+	T_Node   value;  //!< значение узла
 
-	NodeType type;
-	bool     is_left;
+	NODE_TYPE type;   //!< тип узла
+	bool     is_left;//!< задаёт положение узла относительно родителя
 };
 
-const T_Node VAL_POISON  = 0;
+const T_Node VAL_POISON  = 0;	//!< яд для поля value
 
-const char   OPERATIONS_SYMB[10] = "+-/*^";
-const int    N_OPERATIONS = strlen(OPERATIONS_SYMB);
+const int MAX_N_FUNCS = 20;
+
+char func_names[MAX_N_FUNCS] = "scl";				//!< Имена фукнций однстрочные и хранятся в символьном массиве
+const int N_FUNCS = strlen(func_names);
+
+const int MAX_N_OPERS = 10;
+const char OPERATIONS_SYMB[MAX_N_OPERS] = "+-/*^";			//!< Бинарные операции хранятся в символьном массиве
+const int  N_OPERATIONS = strlen(OPERATIONS_SYMB);
+
+const char GVIZ_DOT_NAME[40]   = "tmp.dot";			//!< Имя dot файла, куда происходит вывод дерева
+const char DUMP_IMAGE_NAME[40] = "dump.png";		//!< Имя дамп 
 
 //------------PUBLIC-FUNCTIONS-DECLARATION------------------------
 
-Node* NodeConstructor(Node* parent, T_Node val, NodeType type, NodePlace place);
+/**
+ * создаёт узел
+ */
+Node* NodeConstructor(Node* parent, T_Node val, NODE_TYPE type, NODE_PLACE place);
 
-void NodeDestructor(Node** nod);
+/**
+ * удаляет узел, без удаления потомков
+ */
+void NodeDestructor(Node* nod);
 
-void MakeTransNode(Node* source_node, T_Node val, NodeType type);
+/**
+ * удаляет узел и потомков
+ */
+void NodeFullDestructor(Node** node);
 
-Node* DuplNodeToLeft(Node* parent, Node* source_node);
+/**
+ * удаляет потомков у узла
+ */
+void RemoveDescendants(Node* node);
 
-Node* DuplNodeToRight(Node* parent, Node* source_node);
+/**
+ * создаёт копию узла со всеми потомками
+ *
+ * \param parent родитель для копии
+ * \param place расположение копии узла
+ *
+ * \return копия узла source_node
+ */
+Node* CopyNode(Node* parent, Node* source_node, NODE_PLACE place);
 
-bool IsLeaf(const Node* nod);
+/**
+ * убирает всех потомков у узла
+ */
+void MakeZeroNode(Node* node);
 
-void ShowNode(Node* nod);
+/**
+ * \return 1 если node не имеет потомков
+ * \return 0 если node имеет потомков
+ */
+bool IsLeaf(const Node* node);
+
+/**
+ * выводит картинку с дампом узла node со всеми потомками
+ */
+void ShowNode(Node* node);
 
 #endif
