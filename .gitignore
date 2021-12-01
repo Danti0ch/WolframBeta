@@ -9,3 +9,5 @@ build/tmp.aux
 *.png
 *.png
 build/tmp.dot
+*.exe
+*.png

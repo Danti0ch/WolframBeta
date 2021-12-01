@@ -11,20 +11,26 @@ const int MAX_BUF_SIZE = 1000;
 const char LATEH_FILE_NAME[100]            = "tmp.teh";
 const char OUTPUT_PDF_NAME[100]            = "output.pdf";
 
+/**
+ * структура для хранения буфера
+ */
+struct String{
+	char* data;
+	unsigned int size;
+};
+
+// или стоит сделать одно поле?
 struct Expr{
-	
-	Node    root;
-	// int32_t size;
-	// bool    is_saved;
+	Node*  root;
 };
 
 //------------PUBLIC-FUNCTIONS-DECLARATION------------------------
 
-void ExprInit(Expr* expr);
+void InitExpr(Expr* expr);
 
-void ExprRead(FILE* f_stream, Expr* expr);
+void ReadExpr(FILE* f_stream, Expr* expr);
 
-void ExprDestr(Expr* expr);
+void DestrExpr(Expr* expr);
 
 void sub_expr_destr(Expr* expr, Node* nod);
 
@@ -36,4 +42,4 @@ void ShowExpr(Expr* expr);
 
 void WriteExpr(Expr* expr);
 
-#endif
+#endif // EX_TREE

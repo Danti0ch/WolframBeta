@@ -1,6 +1,6 @@
 #define MAKE_MUL(parent, mul1, mul2, place)					\
 {															\
-	NodeConstructor(parent, '*', OPERATION, place);			\
+	NodeConstructor(parent, '*', NODE_TYPE::OPERATION, place);			\
 	if(place == NODE_PLACE::LEFT){							\
 		CopyNode(parent->left, mul1, NODE_PLACE::LEFT);		\
 		CopyNode(parent->left, mul2, NODE_PLACE::RIGHT);	\

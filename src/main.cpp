@@ -5,15 +5,15 @@ int main(){
 
 	LogInit();
 
-	Expr expr = {};
-	ExprInit(&expr);
+	Expr Expression = {};
 
-	ExprRead(stdin, &expr);
-	ShowExpr(&expr);
-	
-	WriteExpr(&expr);
+	InitExpr(&Expression);
 
-	// SaveExpr(&expr); ???
+	ReadExpr(stdin, &Expression);
+
+	ShowExpr(&Expression);
+	DestrExpr(&Expression);
+
 	LogClose();
 	return 0;
 }
