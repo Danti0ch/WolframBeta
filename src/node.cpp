@@ -219,6 +219,27 @@ Node* CopyNode(Node* parent, Node* source_node, NODE_PLACE place){
 }
 //__________________________________________________________________
 
+Node* CopyNode(Node* source_node){
+
+	assert(source_node 	!= NULL);
+
+	Node* new_node = NodeCtor(source_node->value, source_node->type);
+
+	if(new_node == NULL) return NULL;
+
+	if(IsValid(source_node->left)){
+		CopyNode(new_node, source_node->left, NODE_PLACE::LEFT);
+	}
+
+	if(IsValid(source_node->right)){
+		CopyNode(new_node, source_node->right, NODE_PLACE::RIGHT);
+	}
+
+	ToLog(LOG_TYPE::INFO, "copied Node %p to Node %p", source_node, new_node);
+	return new_node;
+}
+//__________________________________________________________________
+
 void MakeConnection(Node* parent, Node* son, NODE_PLACE place){
 
 	assert(parent != NULL);
@@ -376,7 +397,7 @@ bool EqualFullCheck(Node* node, Node* other_node){
 
 //__________________________________________________________________
 
-#define DEF_FUNC(id, name, code)					\
+#define DEF_FUNC(id, name, dif_code, val_code)	 	\
 {													\
 	if(func_id == id){								\
 		return (char*)(#name);						\

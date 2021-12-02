@@ -68,6 +68,11 @@ static bool check_presence_of_var(Node* node);
  */
 static bool check_low_priority_operation(Node* node, char source_oper);
 
+/**
+ * возвращает значение узла node в точке arg
+ */
+static double get_value_from_node(Node* node, double arg);
+
 //--------------PUBLIC-FUNCTIONS-DEFINITIONS-----------------------------------------
 
 void InitExpr(Expr* expr){
@@ -199,10 +204,10 @@ static Node* oper_dif(Node* node){
 }
 //__________________________________________________________________
 
-#define DEF_FUNC(id, name, code)					\
+#define DEF_FUNC(id, name, dif_code, val_code)		\
 	case id:										\
 		{											\
-			code 									\
+			dif_code 									\
 		}											\
 		break;
 
@@ -226,6 +231,74 @@ static Node* func_dif(Node* node){
 }
 
 #undef DEF_FUNC
+//__________________________________________________________________
+
+double GetValueExpr(Expr* expr, double arg){
+
+	assert(expr != NULL);
+
+	return get_value_from_node(expr->root->left, arg);
+}
+//__________________________________________________________________
+
+#define DEF_FUNC(id, name, dif_code, val_code)	\
+	case id:									\
+		val_code
+
+static double get_value_from_node(Node* node, double arg){
+
+	assert(node != NULL);
+
+	switch((int)node->type){
+		case (int)NODE_TYPE::INVALID:
+			ToLog(LOG_TYPE::ERROR, "Node %p has invalid type", node);
+			exit(0);
+			return -1;
+
+		case (int)NODE_TYPE::CONSTANT:
+			return node->value.const_val;
+
+		case (int)NODE_TYPE::VARIABLE:
+			return arg;
+
+		case (int)NODE_TYPE::OPERATION:
+			switch(node->value.symb){
+				case '+':
+					return get_value_from_node(node->left, arg) + get_value_from_node(node->right, arg);
+				case '-':
+					return get_value_from_node(node->left, arg) - get_value_from_node(node->right, arg);
+				case '*':
+					return get_value_from_node(node->left, arg) * get_value_from_node(node->right, arg);
+				case '/':
+					{
+						double divisible = get_value_from_node(node->left, arg);
+						double divider   = get_value_from_node(node->right, arg);
+	
+						assert(fabs(divider) <= EPS);
+						return divisible / divider;
+					}
+					break;
+				case '^':
+					return pow(get_value_from_node(node->left, arg), get_value_from_node(node->right, arg));
+			}
+
+		case (int)NODE_TYPE::FUNCTION:
+
+			switch(node->value.func_id){
+
+				// КОДОГЕНЕРАЦИЯ
+				#include "func_definitions.h"
+				// КОДОГЕНЕРАЦИЯ
+			}
+
+		default:
+			ToLog(LOG_TYPE::ERROR, "type of Node %p is not recognized");
+			exit(0);
+			return -1;
+	}
+}
+#undef DEF_FUNC
+
 //__________________________________________________________________
 
 void DestrExpr(Expr* expr){

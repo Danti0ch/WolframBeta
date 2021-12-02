@@ -9,6 +9,7 @@ int main(const int argc, const char* argv[]){
 
 	InitExpr(&Expression);
 
+	// TODO: read args
 	FILE* input = NULL;
 	if(argc > 1){
 		input = fopen(argv[1], "r");
@@ -18,20 +19,18 @@ int main(const int argc, const char* argv[]){
 	}
 
 	ReadExpr(input, &Expression);
-
-	ReductExpr(&Expression);
-
 	ShowExpr(&Expression);
-	
-	Expr dif_expr = {};
-	InitExpr(&dif_expr);
 
-	DifExpr(&Expression, &dif_expr);
+	/*
+	ReductExpr(&Expression);
 	
-	ShowExpr(&dif_expr);
-	
+	LatehInit();
+	LatehWriteDifExpr(&Expression);
+
+	LatehClose();
+	LatehToPdf();
+
 	DestrExpr(&Expression);
-
-	LogClose();
+	LogClose();*/
 	return 0;
 }

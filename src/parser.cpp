@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <cstdlib>
+#include <ctype.h>
 
 static void create_buf(String* buffer, FILE* fp);
 
@@ -13,7 +14,8 @@ static bool is_variable(char c);
 
 //_____________________________________________________________________________
 
-#define DEF_FUNC(id, name, code)							\
+/*
+#define DEF_FUNC(id, name, dif_code, val_code)				\
 {															\
 	if(strcmp(function_name, #name) == 0){					\
 		AssignVal(cur_node, (id), NODE_TYPE::FUNCTION);		\
@@ -21,6 +23,7 @@ static bool is_variable(char c);
 		continue;											\
 	}														\
 }
+*/
 
 void ReadExpr(FILE* f_stream, Expr* expr){
 
@@ -30,6 +33,10 @@ void ReadExpr(FILE* f_stream, Expr* expr){
 	String buffer = {};
 	create_buf(&buffer, f_stream);
 
+	expr->root->left = GetG(buffer.data);
+
+	return;
+	/*
 	int    n_cur_symb  = 0;
 	int    n_readen    = 0;
 
@@ -102,9 +109,10 @@ void ReadExpr(FILE* f_stream, Expr* expr){
 		ToLog(LOG_TYPE::ERROR, "Expression can't be readen, check the %d symbol", n_cur_symb);
 		return;
 	}
+	*/
 }
 
-#undef DEF_FUNC
+//#undef DEF_FUNC
 //_____________________________________________________________________________
 
 static void create_buf(String* buffer, FILE* fp){
@@ -115,7 +123,22 @@ static void create_buf(String* buffer, FILE* fp){
 	buffer->data = (char*)calloc(MAX_BUF_SIZE, sizeof(char));
 
 	fgets(buffer->data, MAX_BUF_SIZE, fp);
+
 	buffer->size = strlen(buffer->data);
+	
+	char *buf_symb = buffer->data;
+	int cur_pos    = 0;
+	
+	while(buf_symb < buffer->data + buffer->size){
+
+		if(!isspace(*buf_symb)){
+			buffer->data[cur_pos] = *buf_symb;
+			cur_pos++;
+		}
+		buf_symb++;
+	}
+	buffer->data[cur_pos] = '\0';
+	buffer->size = cur_pos + 1;
 
 	ToLog(LOG_TYPE::INFO, "buffer has been read\n"
 						  "\tbuffer.data: %s\n"
@@ -143,6 +166,8 @@ static bool is_operation(char c){
 
 static bool is_variable(char c){
 
-	return (c >= 'a' &&  c <= 'z') || (c >= 'A' && c <= 'Z'); 
+	// return (c >= 'a' &&  c <= 'z') || (c >= 'A' && c <= 'Z'); 
+
+	return c == 'x';
 }
 //_____________________________________________________________________________

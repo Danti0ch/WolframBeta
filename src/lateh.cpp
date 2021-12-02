@@ -1,143 +1,207 @@
 #include "expression.h"
+#include <assert.h>
+#include <cstdarg>
+#include <cstdlib>
 
-void write_node_to_teh(Node* node, FILE* output_file);
+static void write_node_to_teh(Node* node, FILE* output_file);
 
-bool check_low_priority_operation(Node* node, char source_oper);
+static bool check_low_priority_operation(Node* node, char source_oper);
+
+static void execute_term_cmd(char const * cmd_str, ...);
 
 //__________________________________________________________________
-void WriteExpr(Expr* expr){
 
-	assert(expr != NULL);
+void LatehInit(){
+
+	FILE* teh_file = fopen(LATEH_FILE_NAME, "w");
 	
-	Expr original_expr = {};
-	ExprInit(&original_expr);
-	
-	CopyNode(&(original_expr.root), expr->root.left, NODE_PLACE::LEFT);
+	if(teh_file == NULL){
+		ToLog(LOG_TYPE::WARNING, "couldn't open %s", LATEH_FILE_NAME);
+		return;
+	}
 
-	Expr* diffur = expr;
-	ExprDif(diffur);
-
-	FILE* lateh_file = fopen(LATEH_FILE_NAME, "w");
-
-	fprintf(lateh_file, "\\documentclass{article}\n"
+	fprintf(teh_file, "\\documentclass{article}\n"
 						"\\usepackage[utf8]{inputenc}\n"
 						"\\usepackage[russian]{babel}\n"
 						"\\usepackage{fullpage}\n"
-						"\\title{Differentiator}\n"
+						"\\title{WolframBeta}\n"
 						"\\begin{document}\n"
-						"\\maketitle\n");
+						"\\maketitle\n\n");
 
-	fprintf(lateh_file, "$(");
-	write_node_to_teh(original_expr.root.left, lateh_file);
-	fprintf(lateh_file, ")^\\prime = \n");
-
-	write_node_to_teh(diffur->root.left, lateh_file);
-
-	fprintf(lateh_file, "$\n");
-	fprintf(lateh_file, "\\end{document}\n");
-
-	fclose(lateh_file);
-
-	system("pdflatex tmp.teh");
-	system("tmp.pdf");
+	fclose(teh_file);
 	return;
 }
+//__________________________________________________________________
 
-//------------------------------------------------------------------
-// check it
-void write_node_to_teh(Node* node, FILE* output_file){
+void LatehWriteExpr(Expr* expr){
 
-	assert(node != NULL);
-
-	if(IsOperation(node) && node->value == '/'){
-		fprintf(output_file, "\\frac{");
-		if(node->left != NULL) write_node_to_teh(node->left, output_file);
-		
-		fprintf(output_file, "}{");
-		if(node->right != NULL) write_node_to_teh(node->right, output_file);
-
-		fprintf(output_file, "}");
-		return;
-	}
+	assert(expr != NULL);
 	
-	if(IsFunction(node)){
-		fprintf(output_file, "%c(", (char)node->value);
+	FILE* teh_file = fopen(LATEH_FILE_NAME, "a");
 
-		if(node->left != NULL) write_node_to_teh(node->left, output_file);
+	fprintf(teh_file, "$");
+	write_node_to_teh(expr->root->left, teh_file);
+	fprintf(teh_file, "$");
 
-		fprintf(output_file, ")");
+	fclose(teh_file);
+	return;
+}
+//__________________________________________________________________
 
-		return;
-	}
+//void WriteDifExpr()
 
-	if(node->left != NULL){
+//void WriteMaclorenExpr()
+//------------------------------------------------------------------
 
-		bool brackets_needed = (IsOperation(node) && check_low_priority_operation(node->left, node->value));
-		if(brackets_needed){
-			fprintf(output_file, "(");
-		}
+#define DEF_FUNC(id, name, dif_code, val_code)		\
+	case id:										\
+		fprintf(output_file, "%s", #name);			\
+		break;
 
-		write_node_to_teh(node->left, output_file);
+static void write_node_to_teh(Node* node, FILE* output_file){
 
-		if(brackets_needed){
-			fprintf(output_file, ")");
-		}
-	}
+	assert(node        != NULL);
+	assert(output_file != NULL);
 
-	if(IsOperation(node) && node->value == '^'){
-		fprintf(output_file, "^{");
-		if(node->right != NULL) write_node_to_teh(node->right, output_file);
-		fprintf(output_file, "}");
-		return;
-	}
-
-	if(node->type == NODE_TYPE::INVALID){
+	if(!IsValid(node)){
 		ToLog(LOG_TYPE::ERROR, "Node %p has invalid type", node);
 		return;
 	}
-
-	else if(IsVariable(node)){
-		fprintf(output_file, "%c", (char)node->value);
+	else if(IsConstant(node)){
+		fprintf(output_file, "%.4g", node->value.const_val);
 	}
-
+	else if(IsVariable(node)){
+		fprintf(output_file, "%c", node->value.symb);
+	}
 	else if(IsOperation(node)){
 
-		if(node->value == '*'){
-			fprintf(output_file, " \\cdot ");
+		if(node->value.symb == '/') fprintf(output_file, "\\frac");
+
+		if(IsValid(node->left)){
+
+			bool brackets_needed = false;
+			if(check_low_priority_operation(node->left, node->value.symb)){
+				brackets_needed = true;
+			}
+
+			if(brackets_needed) fprintf(output_file, "{(");
+			else 				fprintf(output_file, "{");
+
+			write_node_to_teh(node->left, output_file);
+
+			if(brackets_needed) fprintf(output_file, ")}");
+			else 				fprintf(output_file, "}");
 		}
-		else{
-			fprintf(output_file, "%c", (char)node->value);
+
+		switch(node->value.symb){
+			case '+':
+				fprintf(output_file, " + ");
+				break;
+			case '-':
+				fprintf(output_file, " - ");
+				break;
+			case '*':	
+				fprintf(output_file, " \\cdot ");
+				break;
+			case '^':
+				fprintf(output_file, "^");
+				break;
+		}
+
+		if(IsValid(node->right)){
+
+			bool brackets_needed = false;
+			if(check_low_priority_operation(node->right, node->value.symb)){
+				brackets_needed = true;
+			}
+
+			if(brackets_needed) fprintf(output_file, "{(");
+			else 				fprintf(output_file, "{");
+			
+			write_node_to_teh(node->right, output_file);
+
+			if(brackets_needed) fprintf(output_file, ")}");
+			else 				fprintf(output_file, "}");
 		}
 	}
+	else if(IsFunction(node)){
 
-	else if(IsConstant(node)){
-		if(node->value < 0 && !(IsOperation(node->parent) && node->parent->value == '+')){
-			fprintf(output_file, "(%.5lg)", node->value);
+		switch(node->value.func_id){
+
+			// КОДОГЕНЕРАЦИЯ
+			#include "func_definitions.h"
+			// КОДОГЕНЕРАЦИЯ
+
+			default:
+				ToLog(LOG_TYPE::ERROR, "Wrong func name Node %p", node);
+				break;
 		}
-		else{
-			fprintf(output_file, "%.5lg", node->value);
-		}
+
+		fprintf(output_file, "{(");
+		if(IsValid(node->left)) write_node_to_teh(node->left, output_file);
+		fprintf(output_file, ")}");
 	}
-	else{
-		ToLog(LOG_TYPE::ERROR, "The type of Node %p is unreacheble", node);
-		return;
-	}
+	return;
+}
 
-	if(node->right != NULL){
+#undef DEF_FUNC
+//__________________________________________________________________
 
-		bool brackets_needed = (IsOperation(node) && check_low_priority_operation(node->right, node->value));
+void LatehWriteDifExpr(Expr* expr){
 
-		if(brackets_needed){
-			fprintf(output_file, "(");
-		}
+	assert(expr != NULL);
 
-		write_node_to_teh(node->right, output_file);
+	LatehWrite("(");
+	LatehWriteExpr(expr);
+	LatehWrite(")^\\prime = ");
 
-		if(brackets_needed){
-			fprintf(output_file, ")");
-		}
-	}
+	Expr dif_expr = {};
+
+	InitExpr(&dif_expr);
+
+	DifExpr(expr, &dif_expr);
+
+	LatehWriteExpr(&dif_expr);
+
+	LatehWrite("\n\n");
+}
+//__________________________________________________________________
+
+void LatehWrite(const char* str, ...){
+
+	assert(str      != NULL);
+
+	FILE* teh_file = fopen(LATEH_FILE_NAME, "a");
+
+	va_list args;
+	va_start(args, str);
 	
+	vfprintf(teh_file, str, args);
+
+	va_end(args);
+
+	fclose(teh_file);
+
+	return;
+}
+//__________________________________________________________________
+
+void LatehClose(){
+
+	FILE* teh_file = fopen(LATEH_FILE_NAME, "a");
+
+	fprintf(teh_file, "\n\n\\end{document}\n");
+
+	fclose(teh_file);
+	return;
+}
+//__________________________________________________________________
+
+void LatehToPdf(){
+
+	execute_term_cmd("pdflatex -interaction=batchmode %s", LATEH_FILE_NAME);
+	execute_term_cmd("%s", OUTPUT_PDF_NAME);
+
 	return;
 }
 
@@ -163,15 +227,29 @@ static bool check_low_priority_operation(Node* node, char source_oper){
 		return true;
 	}
 
-	bool is_low_prior = false;
+	return false;
+}
 
-	if(node->left != NULL){
-		is_low_prior |= check_low_priority_operation(node->left, source_oper);
-	}
 
-	if(node->right != NULL){
-		is_low_prior |= check_low_priority_operation(node->right, source_oper);
-	}
+static void execute_term_cmd(char const * cmd_str, ...){
 
-	return is_low_prior;
+	assert(cmd_str != NULL);
+
+	va_list args;
+    va_start(args, cmd_str);
+
+    int buflen = _vscprintf(cmd_str, args) + 1;
+    char *buffer = (char*)calloc(buflen, sizeof(char));
+
+    if (buffer != NULL){
+        vsprintf(buffer, cmd_str, args);
+    }
+
+    va_end( args );
+
+    system(buffer);
+
+	free(buffer);
+
+	return;
 }

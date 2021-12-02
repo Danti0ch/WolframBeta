@@ -15,15 +15,13 @@ void get_log_name(char* buf);
 
 void LogInit(){
 
-	#if ENABLE_CMD_LOGS
-		char name[MAX_LOG_NAME_LEN] = "";
-		get_log_name(name);
-		printf("%s\n", name);
-		log_file = fopen(name, "w");
-		assert(log_file != NULL);
+	char name[MAX_LOG_NAME_LEN] = "";
+	get_log_name(name);
+	printf("%s\n", name);
+	log_file = fopen(name, "w");
+	assert(log_file != NULL);
 
-		ToLog(LOG_TYPE::INFO, "Logging initiated");
-	#endif
+	ToLog(LOG_TYPE::INFO, "Logging initiated");
 
 	return;
 }
@@ -32,11 +30,9 @@ void LogInit(){
 
 void LogClose(){
 
-	#if ENABLE_CMD_LOGS
-		assert(log_file != NULL);
-		ToLog(LOG_TYPE::INFO, "Logging closed");
-		fclose(log_file);
-	#endif
+	assert(log_file != NULL);
+	ToLog(LOG_TYPE::INFO, "Logging closed");
+	fclose(log_file);
 
 	return;
 }

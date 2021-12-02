@@ -114,7 +114,7 @@ void RemoveDescendants(Node* node);
  * \return копия узла source_node
  */
 Node* CopyNode(Node* parent, Node* source_node, NODE_PLACE place);
-
+Node* CopyNode(Node* source_node);
 /**
  * создаёт связь между узлами parent, son
  */
