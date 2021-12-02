@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <math.h>
-#include "dls.h"
+#include "dsl.h"
 
 //---------------LOCAL-FUNCTIONS-DECLARATION-----------------------------------------
 
@@ -24,7 +24,7 @@ static Node* oper_dif(Node* node);
 /**
  * возвращает поддерево, которое является "производной" узла - функции node
  */
-// static Node* func_dif(Node* node);
+static Node* func_dif(Node* node);
 
 /**
  * функция-оптимизатор
@@ -130,7 +130,7 @@ Node* NodeDif(Node* node){
 			break;
 
 		case (int)NODE_TYPE::FUNCTION:
-			// return func_dif(node);
+			return func_dif(node);
 			break;
 
 		default:
@@ -197,6 +197,35 @@ static Node* oper_dif(Node* node){
 
 	return (Node*)NODE_POISON;
 }
+//__________________________________________________________________
+
+#define DEF_FUNC(id, name, code)					\
+	case id:										\
+		{											\
+			code 									\
+		}											\
+		break;
+
+static Node* func_dif(Node* node){
+
+	assert(node != NULL);
+
+	switch(node->value.func_id){
+
+		// КОДОГЕНЕРАЦИЯ
+		#include "func_definitions.h"
+		// КОДОГЕНЕРАЦИЯ
+		
+		default:
+			ToLog(LOG_TYPE::ERROR, "Node %p has invalid func id", node);
+			return (Node*)NODE_POISON;
+			break;
+	}
+
+	return (Node*)NODE_POISON;
+}
+
+#undef DEF_FUNC
 //__________________________________________________________________
 
 void DestrExpr(Expr* expr){
@@ -494,39 +523,5 @@ static bool check_presence_of_var(Node* node){
 	}
 
 	return has_var;
-}
-//__________________________________________________________________
-
-static bool check_low_priority_operation(Node* node, char source_oper){
-
-	assert(node != NULL);
-
-	if(IsOperation(node)){
-
-		if(source_oper == '+' || source_oper == '-'){
-			return false;
-		}
-		else if(source_oper == '*' || source_oper == '/'){
-			if(node->value.symb == '+' || node->value.symb == '-') return true;
-			else return false;
-		}
-		else if(source_oper == '^'){
-			if(node->value.symb == '^') return false;
-			else return true;
-		}
-		return true;
-	}
-
-	bool is_low_prior = false;
-
-	if(node->left != NULL){
-		is_low_prior |= check_low_priority_operation(node->left, source_oper);
-	}
-
-	if(node->right != NULL){
-		is_low_prior |= check_low_priority_operation(node->right, source_oper);
-	}
-
-	return is_low_prior;
 }
 //__________________________________________________________________

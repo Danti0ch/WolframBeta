@@ -1,3 +1,6 @@
+#ifndef DSL_H
+#define DSL_H
+
 #define L node->left
 #define R node->right
 
@@ -18,3 +21,5 @@ NodeCtor('/', NODE_TYPE::OPERATION, (L), (R))
 
 #define POW(L, R)								\
 NodeCtor('^', NODE_TYPE::OPERATION, (L), (R))
+
+#endif //DSL_H

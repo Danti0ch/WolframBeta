@@ -2,19 +2,9 @@
 
 void write_node_to_teh(Node* node, FILE* output_file);
 
-bool check_presence_of_var(Node* node);
-
 bool check_low_priority_operation(Node* node, char source_oper);
 
-bool node_reduction(Node* node);
-
-bool mul_reduction(Node* node);
-
-bool sum_reduction(Node* node);
-
-bool pow_reduction(Node* node);
-
-
+//__________________________________________________________________
 void WriteExpr(Expr* expr){
 
 	assert(expr != NULL);
@@ -149,4 +139,39 @@ void write_node_to_teh(Node* node, FILE* output_file){
 	}
 	
 	return;
+}
+
+//__________________________________________________________________
+
+static bool check_low_priority_operation(Node* node, char source_oper){
+
+	assert(node != NULL);
+
+	if(IsOperation(node)){
+
+		if(source_oper == '+' || source_oper == '-'){
+			return false;
+		}
+		else if(source_oper == '*' || source_oper == '/'){
+			if(node->value.symb == '+' || node->value.symb == '-') return true;
+			else return false;
+		}
+		else if(source_oper == '^'){
+			if(node->value.symb == '^') return false;
+			else return true;
+		}
+		return true;
+	}
+
+	bool is_low_prior = false;
+
+	if(node->left != NULL){
+		is_low_prior |= check_low_priority_operation(node->left, source_oper);
+	}
+
+	if(node->right != NULL){
+		is_low_prior |= check_low_priority_operation(node->right, source_oper);
+	}
+
+	return is_low_prior;
 }

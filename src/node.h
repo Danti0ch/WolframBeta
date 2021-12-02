@@ -87,6 +87,7 @@ Node* NodeCtor(int val, NODE_TYPE type);
  * создаёт узел с копиями узлов left, right в качестве дочерних
  */
 Node* NodeCtor(char val, NODE_TYPE type, Node* left, Node* right);
+Node* NodeCtor(int val, NODE_TYPE type, Node* left);
 
 Node* NodeCtor();
 /**

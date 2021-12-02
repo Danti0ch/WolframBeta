@@ -116,6 +116,18 @@ Node* NodeCtor(int val, NODE_TYPE type){
 }
 //__________________________________________________________________
 
+Node* NodeCtor(int val, NODE_TYPE type, Node* left){
+
+	T_Node node_val = { .func_id = val};
+
+	Node* node = NodeCtor(node_val, type);
+
+	CopyNode(node, left, NODE_PLACE::LEFT);
+
+	return node;
+}
+//__________________________________________________________________
+
 Node* NodeCtor(char val, NODE_TYPE type, Node* left, Node* right){
 
 	if(type != NODE_TYPE::OPERATION) return NULL;
