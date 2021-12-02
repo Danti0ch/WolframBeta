@@ -21,25 +21,25 @@ Node* NodeCtor(Node* parent, char val, NODE_TYPE type, NODE_PLACE place){
 
 	T_Node node_val = { .symb = val};
 	
-	Node* node = (Node*)NODE_POISON;
-
-	if(IsOperation(node)){
-		node = NodeCtor(parent, node_val, NODE_TYPE::OPERATION, place);
-	}
-	else{
-		node = NodeCtor(parent, node_val, NODE_TYPE::VARIABLE, place);
-	}
-
-	return node;
+	return NodeCtor(parent, node_val, type, place);
 }
 
 Node* NodeCtor(Node* parent, int val, NODE_TYPE type, NODE_PLACE place){
 
 	assert(parent != NULL);
 	
-	T_Node node_val = { .func_id = val};
-	
-	Node* node = NodeCtor(parent, node_val, NODE_TYPE::FUNCTION, place);
+	Node* node = (Node*)NODE_POISON;
+
+	if(type == NODE_TYPE::FUNCTION){
+		T_Node node_val = { .func_id = val};
+		
+		node = NodeCtor(parent, node_val, NODE_TYPE::FUNCTION, place);
+	}
+	else{
+		T_Node node_val = { .const_val = (double)val};
+		
+		node = NodeCtor(parent, node_val, NODE_TYPE::CONSTANT, place);
+	}
 
 	return node;
 }
@@ -54,14 +54,15 @@ Node* NodeCtor(Node* parent, T_Node val, NODE_TYPE type, NODE_PLACE place){
 
 	node->parent   = parent;
 
+	node->place = place;
+
 	if(place == NODE_PLACE::LEFT){
-		node->is_left  = true;
 		if(parent != NULL) parent->left  = node;
 	}
 	else{
-		node->is_left  = false;
 		if(parent != NULL) parent->right = node;
 	}
+
 	return node;
 }
 
@@ -76,9 +77,12 @@ Node* NodeCtor(T_Node val, NODE_TYPE type){
 
 	AssignVal(node, val, type);
 
-	node->left  = (Node*)NODE_POISON;
-	node->right = (Node*)NODE_POISON;
-	
+	node->left   = (Node*)NODE_POISON;
+	node->right  = (Node*)NODE_POISON;
+	node->parent = (Node*)NODE_POISON;
+
+	node->place  = NODE_PLACE::LEFT;
+
 	ToLog(LOG_TYPE::INFO, "created Node %p", node);
 	return node;
 }
@@ -117,11 +121,11 @@ void NodeDtor(Node* node){
 	if(node == NULL)  return;
 	
 	if(IsLeft(node) && IsValid(node->parent)){
-		node->parent->left = NULL;
+		node->parent->left = (Node*)NODE_POISON;
 	}
 
 	else if(IsValid(node->parent)){
-		node->parent->right = NULL;
+		node->parent->right = (Node*)NODE_POISON;
 	}
 
 	ToLog(LOG_TYPE::INFO, "destruct Node %p", node);
@@ -185,17 +189,58 @@ void MakeConnection(Node* parent, Node* son, NODE_PLACE place){
 	assert(parent != NULL);
 	assert(son    != NULL);
 
+	son->place = place;
+
 	if(place == NODE_PLACE::LEFT){
 		parent->left = son;
-		son->is_left = true;
 	}
 	else{
 		parent->right = son;
-		son->is_left  = false;
 	}
 
 	son->parent = parent;
 
+	return;
+}
+//__________________________________________________________________
+
+void BreakConnWithParent(Node* son){
+
+	assert(son    != NULL);
+
+	if(!IsValid(son->parent)) return;
+
+	if(IsLeft(son)){
+		son->parent->left = (Node*)NODE_POISON;
+	}
+	else{
+		son->parent->right = (Node*)NODE_POISON;		
+	}
+
+	son->parent = (Node*)NODE_POISON;
+
+	return;
+}
+//__________________________________________________________________
+
+void BreakConnWithSon(Node* parent, NODE_PLACE place){
+
+	assert(parent    != NULL);
+
+	if(place == NODE_PLACE::LEFT){
+		if(!IsValid(parent->left)) return;
+
+		parent->left->parent = (Node*)NODE_POISON;
+		parent->left         = (Node*)NODE_POISON;
+	}
+
+	else{
+		if(!IsValid(parent->right)) return;
+
+		parent->right->parent = (Node*)NODE_POISON;
+		parent->right         = (Node*)NODE_POISON;
+	}
+	
 	return;
 }
 //__________________________________________________________________
@@ -246,6 +291,52 @@ void AssignVal(Node* node, T_Node val, NODE_TYPE type){
 	node->value = val;
 
 	return;
+}
+
+bool EqualCheck(Node* node, Node* other_node){
+
+	assert(node       != NULL);
+	assert(other_node != NULL);
+
+	if(node->type != other_node->type) return false;
+
+	if(node->type == NODE_TYPE::CONSTANT){
+		if(node->value.const_val != other_node->value.const_val) return false;
+	}
+	else if(node->type == NODE_TYPE::VARIABLE || node->type == NODE_TYPE::OPERATION){
+		if(node->value.symb != other_node->value.symb) return false;
+	}
+	else if(node->type == NODE_TYPE::FUNCTION){
+		if(node->value.func_id != other_node->value.func_id) return false;
+	}
+
+	return true;
+}	
+
+bool EqualFullCheck(Node* node, Node* other_node){
+
+	assert(node 	  != NULL);
+	assert(other_node != NULL);
+
+	if(!EqualCheck(node, other_node)) return false;
+
+	bool are_equal = true;
+
+	if(IsValid(node->left) && IsValid(other_node->left)){
+		are_equal &= EqualFullCheck(node->left, other_node->left);
+	}
+	else if(IsValid(node->left) || IsValid(other_node->left)){
+		return false;
+	}
+
+	if(IsValid(node->right) && IsValid(other_node->right)){
+		are_equal &= EqualFullCheck(node->right, other_node->right);
+	}
+	else if(IsValid(node->right) && IsValid(other_node->right)){
+		return false;
+	}
+
+	return are_equal;
 }
 
 //__________________________________________________________________

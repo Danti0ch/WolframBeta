@@ -4,6 +4,8 @@
 #include <cstdarg>
 #include <assert.h>
 
+static int n_img_file = 0;
+
 /**
  * создаёт dot файл с информацией об узле node и его потомкаха
  */
@@ -38,10 +40,23 @@ void ShowNode(Node* node){
 
 	assert(node != NULL);
 
+	char n_img_string[MAX_IMG_N_STRING_LEN] = "";
+	itoa(n_img_file, n_img_string, 10);
+
+	char image_name[FILE_NAME_LEN] = "";
+	strcpy(image_name, DUMP_IMAGE_NAME);
+	strcat(image_name, n_img_string);
+	strcat(image_name, ".png");
+
 	generate_dot(node, GVIZ_DOT_NAME);
-	generate_image(GVIZ_DOT_NAME, DUMP_IMAGE_NAME);
-	
-	system(DUMP_IMAGE_NAME);
+	generate_image(GVIZ_DOT_NAME, image_name);
+
+	char full_path[200] =  "C:/Users/79162/Desktop/code/mipt_projects/WolframBeta/dumps/";
+
+	system(strcat(full_path, image_name));
+
+	n_img_file++;
+
 	ToLog(LOG_TYPE::INFO, "showed Node %p", node);	
 	return;
 }
@@ -102,13 +117,13 @@ static void write_node_to_dot(Node const * node, int* n_node, FILE* output_file)
 								  "parent:  %p |"
 								  "left:    %p |"
 								  "right:   %p |"
-								  "is_left: %s |"
+								  "place:   %s |"
 								  "type:    %s |",
 								  node,
 								  node->parent,
 								  node->left,
 								  node->right,
-								  IsLeft(node) ? "true" : "false",
+								  IsLeft(node) ? "left" : "right",
 								  get_type_string(node->type));
 
 
@@ -169,7 +184,7 @@ static void generate_image(char const * input_file_name, char const * output_fil
 	assert(output_file_name  != NULL);
 	assert(input_file_name   != output_file_name);
 
-	execute_term_cmd("dot -Tpng %s -o %s", input_file_name, output_file_name);
+	execute_term_cmd("dot -Tpng %s -o ../dumps/%s", input_file_name, output_file_name);
 
 	ToLog(LOG_TYPE::INFO, "Image %s has showen", output_file_name);
 	return;

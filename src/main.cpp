@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "expression.h"
 
-int main(){
+int main(const int argc, const char* argv[]){
 
 	LogInit();
 
@@ -9,7 +9,15 @@ int main(){
 
 	InitExpr(&Expression);
 
-	ReadExpr(stdin, &Expression);
+	FILE* input = NULL;
+	if(argc > 1){
+		input = fopen(argv[1], "r");
+	}
+	else{
+		input = stdin;
+	}
+	
+	ReadExpr(input, &Expression);
 
 	ShowExpr(&Expression);
 	DestrExpr(&Expression);

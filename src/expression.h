@@ -32,9 +32,7 @@ void ReadExpr(FILE* f_stream, Expr* expr);
 
 void DestrExpr(Expr* expr);
 
-void sub_expr_destr(Expr* expr, Node* nod);
-
-void ExprDif(Expr* expr);
+void DifExpr(Expr* expr);
 
 void NodeDif(Node* node);
 

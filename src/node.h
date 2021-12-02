@@ -46,14 +46,14 @@ union T_Node{
  */
 struct Node{
 
-	Node*    left; 	  //!< указатель на левого потомка
-	Node*    right;   //!< указатель на правого потомка
-	Node*    parent;  //!< указатель на родителя
+	Node*      left; 	  //!< указатель на левого потомка
+	Node*      right;   //!< указатель на правого потомка
+	Node*      parent;  //!< указатель на родителя
 
-	T_Node   value;   //!< значение узла
+	T_Node     value;   //!< значение узла
 
-	NODE_TYPE type;    //!< тип узла
-	bool      is_left; //!< задаёт положение узла относительно родителя
+	NODE_TYPE  type;    //!< тип узла
+	NODE_PLACE place; //!< задаёт положение узла относительно родителя
 };
 
 const T_Node VAL_POISON  = { .const_val = -7 };	//!< яд для поля value
@@ -65,8 +65,10 @@ const int  MAX_N_OPERS = 10;
 const char OPERATIONS_SYMB[MAX_N_OPERS] = "+-/*^";			//!< Бинарные операции хранятся в символьном массиве
 const int  N_OPERATIONS = strlen(OPERATIONS_SYMB);
 
-const char GVIZ_DOT_NAME[40]   = "tmp.dot";			//!< Имя dot файла, куда происходит вывод дерева
-const char DUMP_IMAGE_NAME[40] = "dump.png";		//!< Имя дамп 
+const int MAX_IMG_N_STRING_LEN = 20;
+const int FILE_NAME_LEN        = 40;
+const char GVIZ_DOT_NAME[FILE_NAME_LEN]   = "tmp.dot";			//!< Имя dot файла, куда происходит вывод дерева
+const char DUMP_IMAGE_NAME[FILE_NAME_LEN] = "dump";		//!< Имя дамп 
 
 //------------PUBLIC-FUNCTIONS-DECLARATION------------------------
 
@@ -112,6 +114,16 @@ Node* CopyNode(Node* parent, Node* source_node, NODE_PLACE place);
 void MakeConnection(Node* parent, Node* son, NODE_PLACE place);
 
 /**
+ * дезинтегрирует связь c отцовским узлом son
+ */
+void BreakConnWithParent(Node* son);
+
+/**
+ * дезинтегрирует связь c дочерним узлом parent
+ */
+void BreakConnWithSon(Node* parent, NODE_PLACE place);
+
+/**
  * присваивает тип и значение узлу(в зависимости от типа)
  */
 void AssignVal(Node* node, T_Node val, NODE_TYPE type);
@@ -123,6 +135,20 @@ void AssignVal(Node* node, char val, NODE_TYPE type);
  * выводит картинку с дампом узла node со всеми потомками
  */
 void ShowNode(Node* node);
+
+/**
+ * проверяет, равны ли два узла(без потомков)
+ *
+ * \return 1, если равны. 0, если не равны
+ */
+bool EqualCheck(Node* node, Node* other_node);
+
+/**
+ * проверяет, равны ли два узла(со всеми потомками)
+ *
+ * \return 1, если равны. 0, если не равны
+ */
+bool EqualFullCheck(Node* node, Node* other_node);
 
 /**
  * возвращает имя функции по её коду
@@ -147,11 +173,11 @@ inline bool IsLeaf(const Node* node){
 //__________________________________________________________________
 
 inline bool IsLeft(const Node* node){
-	return node->is_left;
+	return node->place == NODE_PLACE::LEFT;
 }
 
 inline bool IsRight(const Node* node){
-	return !(node->is_left);
+	return node->place == NODE_PLACE::RIGHT;
 }
 //__________________________________________________________________
 
