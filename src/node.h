@@ -76,11 +76,17 @@ Node* NodeCtor(Node* parent, T_Node val, NODE_TYPE type, NODE_PLACE place);
 Node* NodeCtor(Node* parent, double val, NODE_TYPE type, NODE_PLACE place);
 Node* NodeCtor(Node* parent, char val, NODE_TYPE type, NODE_PLACE place);
 Node* NodeCtor(Node* parent, int val, NODE_TYPE type, NODE_PLACE place);
+Node* NodeCtor(Node* parent, int val, NODE_TYPE type, NODE_PLACE place, Node* left, Node* right);
 
 Node* NodeCtor(T_Node val, NODE_TYPE type);
 Node* NodeCtor(double val, NODE_TYPE type);
 Node* NodeCtor(char val, NODE_TYPE type);
 Node* NodeCtor(int val, NODE_TYPE type);
+
+/**
+ * создаёт узел с копиями узлов left, right в качестве дочерних
+ */
+Node* NodeCtor(char val, NODE_TYPE type, Node* left, Node* right);
 
 Node* NodeCtor();
 /**

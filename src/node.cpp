@@ -14,6 +14,7 @@ Node* NodeCtor(Node* parent, double val, NODE_TYPE type, NODE_PLACE place){
 
 	return node;
 }
+//__________________________________________________________________
 
 Node* NodeCtor(Node* parent, char val, NODE_TYPE type, NODE_PLACE place){
 
@@ -23,6 +24,7 @@ Node* NodeCtor(Node* parent, char val, NODE_TYPE type, NODE_PLACE place){
 	
 	return NodeCtor(parent, node_val, type, place);
 }
+//__________________________________________________________________
 
 Node* NodeCtor(Node* parent, int val, NODE_TYPE type, NODE_PLACE place){
 
@@ -43,6 +45,7 @@ Node* NodeCtor(Node* parent, int val, NODE_TYPE type, NODE_PLACE place){
 
 	return node;
 }
+//__________________________________________________________________
 
 Node* NodeCtor(Node* parent, T_Node val, NODE_TYPE type, NODE_PLACE place){
 
@@ -65,6 +68,7 @@ Node* NodeCtor(Node* parent, T_Node val, NODE_TYPE type, NODE_PLACE place){
 
 	return node;
 }
+//__________________________________________________________________
 
 Node* NodeCtor(T_Node val, NODE_TYPE type){
 
@@ -86,6 +90,7 @@ Node* NodeCtor(T_Node val, NODE_TYPE type){
 	ToLog(LOG_TYPE::INFO, "created Node %p", node);
 	return node;
 }
+//__________________________________________________________________
 
 Node* NodeCtor(double val, NODE_TYPE type){
 
@@ -93,6 +98,7 @@ Node* NodeCtor(double val, NODE_TYPE type){
 
 	return NodeCtor(node_val, type);
 }
+//__________________________________________________________________
 
 Node* NodeCtor(char val, NODE_TYPE type){
 
@@ -100,6 +106,7 @@ Node* NodeCtor(char val, NODE_TYPE type){
 
 	return NodeCtor(node_val, type);
 }
+//__________________________________________________________________
 
 Node* NodeCtor(int val, NODE_TYPE type){
 
@@ -107,6 +114,22 @@ Node* NodeCtor(int val, NODE_TYPE type){
 
 	return NodeCtor(node_val, type);
 }
+//__________________________________________________________________
+
+Node* NodeCtor(char val, NODE_TYPE type, Node* left, Node* right){
+
+	if(type != NODE_TYPE::OPERATION) return NULL;
+
+	T_Node node_val = { .symb = val};
+
+	Node* node = NodeCtor(node_val, type);
+
+	CopyNode(node, left, NODE_PLACE::LEFT);
+	CopyNode(node, right, NODE_PLACE::RIGHT);
+		
+	return node;
+}
+//__________________________________________________________________
 
 Node* NodeCtor(){
 

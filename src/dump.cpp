@@ -140,7 +140,6 @@ static void write_node_to_dot(Node const * node, int* n_node, FILE* output_file)
 			ToLog(LOG_TYPE::ERROR, "try to dump invalid node(Node %p)", node);
 			return;
 		}
-
 	#else
 		if(IsConstant(node)){
 			fprintf(output_file, "%d[style = \"filled\", fillcolor = \"#E6F099\", shape = \"record\", label = \"%.6lg\"]\n", cur_n_node, node->value);

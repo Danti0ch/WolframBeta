@@ -16,10 +16,20 @@ int main(const int argc, const char* argv[]){
 	else{
 		input = stdin;
 	}
-	
+
 	ReadExpr(input, &Expression);
 
+	ReductExpr(&Expression);
+
 	ShowExpr(&Expression);
+	
+	Expr dif_expr = {};
+	InitExpr(&dif_expr);
+
+	DifExpr(&Expression, &dif_expr);
+	
+	ShowExpr(&dif_expr);
+	
 	DestrExpr(&Expression);
 
 	LogClose();

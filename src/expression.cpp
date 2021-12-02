@@ -2,10 +2,29 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <math.h>
+#include "dls.h"
 
 //---------------LOCAL-FUNCTIONS-DECLARATION-----------------------------------------
 
-bool is_null(Node* node);
+/**
+ * возвращает поддерево, которое является "производной" узла - константы node
+ */
+static Node* const_dif(Node* node);
+
+/**
+ * возвращает поддерево, которое является "производной" узла - переменной node
+ */
+static Node* var_dif(Node* node);
+
+/**
+ * возвращает поддерево, которое является "производной" узла - операции node
+ */
+static Node* oper_dif(Node* node);
+
+/**
+ * возвращает поддерево, которое является "производной" узла - функции node
+ */
+// static Node* func_dif(Node* node);
 
 /**
  * функция-оптимизатор
@@ -37,6 +56,18 @@ static bool sum_reduction(Node* node);
  */
 static bool pow_reduction(Node* node);
 
+/**
+ * проверяет, есть ли узел типа variable в субдереве node
+ * \return 1, если есть, 0, если нет
+ */
+static bool check_presence_of_var(Node* node);
+
+/**
+ * проверяет, есть ли операция, приоритет которой ниже source_oper в субдереве node
+ * \return 1, если есть, 0, если нет
+ */
+static bool check_low_priority_operation(Node* node, char source_oper);
+
 //--------------PUBLIC-FUNCTIONS-DEFINITIONS-----------------------------------------
 
 void InitExpr(Expr* expr){
@@ -50,209 +81,123 @@ void InitExpr(Expr* expr){
 	return;
 }
 //__________________________________________________________________
-/*
-void DifExpr(Expr* expr){
 
-	assert(expr != NULL);
+Expr* DifExpr(Expr* expr, Expr* dif_expr){
 
+	assert(expr     != NULL);
+	assert(dif_expr != NULL);
+
+	DestrExpr(dif_expr);
+	InitExpr(dif_expr);
+
+	ToLog(LOG_TYPE::INFO, "attempt to diff Expr %p", expr);
+
+	ShowNode(expr->root->left);
 	while(node_reduction(expr->root->left));
 
-	NodeDif(expr->root->left);
+	Node* diffed_node = NodeDif(expr->root->left);
 
-	while(node_reduction(expr->root->left));
+	MakeConnection(dif_expr->root, diffed_node, NODE_PLACE::LEFT);
 
-	return;
+	while(node_reduction(dif_expr->root->left));
+
+	ToLog(LOG_TYPE::INFO, "successful diff Expr %p", expr);
+	
+	return dif_expr;
 }
-*/
 //__________________________________________________________________
 
-//------------------------------------------------------------------
-/*
-void NodeDif(Node* node){
+Node* NodeDif(Node* node){
 
 	assert(node != NULL);
-	if(node->type == NODE_TYPE::INVALID){
-		ToLog(LOG_TYPE::WARNING, "Node %p is invalid", node);
-		return;
+
+	if(!IsValid(node)){
+		ToLog(LOG_TYPE::ERROR, "attempt to diff invalid type Node %p", node);
+		return (Node*)NODE_POISON;
 	}
 
-	if(check_presence_of_var(node) == false){
+	switch((int)node->type){
+		case (int)NODE_TYPE::CONSTANT:
+			return const_dif(node);
+			break;
 
-		RemoveDescendants(node);
-		node->type  = NODE_TYPE::CONSTANT;
-		node->value = 0;
-		return;
+		case (int)NODE_TYPE::VARIABLE:
+			return var_dif(node);
+			break;
+
+		case (int)NODE_TYPE::OPERATION:
+			return oper_dif(node);
+			break;
+
+		case (int)NODE_TYPE::FUNCTION:
+			// return func_dif(node);
+			break;
+
+		default:
+			ToLog(LOG_TYPE::ERROR, "attempt to diff invalid type Node %p", node);
+			return (Node*)NODE_POISON;
+			break;
 	}
 
-	if(IsVariable(node)){
-		node->type  = NODE_TYPE::CONSTANT;
-		node->value = 1;
-		return;
-	}
+	return (Node*)NODE_POISON;
+}
+//__________________________________________________________________
 
-	if(IsOperation(node)){
-		if(node->value == '+' || node->value == '-'){
-			NodeDif(node->left);
-			NodeDif(node->right);
-			return;
-		}
+static Node* const_dif(Node* node){
+
+	assert(node != NULL);
+	return NodeCtor(0.0, NODE_TYPE::CONSTANT);
+}
+//__________________________________________________________________
+
+static Node* var_dif(Node* node){
+
+	assert(node != NULL);
+	return NodeCtor(1.0, NODE_TYPE::CONSTANT);
+}
+//__________________________________________________________________
+
+static Node* oper_dif(Node* node){
+
+	assert(node != NULL);
+
+	switch(node->value.symb){
+		case '+':
+			return ADD(DIFF(L), DIFF(R));
+			break;
+
+		case '-':
+			return SUB(DIFF(L), DIFF(R));
+			break;
 		
-		if(node->value == '*'){
-			if(is_null(node->left) || is_null(node->right)){
-				MakeZeroNode(node);
-				return;
-			}
-			node->value = '+';
-			
-			Node* mul1 = node->left;
-			Node* mul2 = node->right;
-			
-			MAKE_MUL(node, mul1, mul2, NODE_PLACE::LEFT);
-			MAKE_MUL(node, mul1, mul2, NODE_PLACE::RIGHT);
+		case '*':
+			return ADD(MUL(DIFF(L), R), MUL(L, DIFF(R)));
+			break;
 
-			mul1->parent = NULL;
-			mul2->parent = NULL;
+		case '/':
+			return DIV(SUB(MUL(DIFF(L), R), 
+				           MUL(DIFF(R), L)), MUL(R, R));
+			break;
 
-			NodeDestructor(mul1);
-			NodeDestructor(mul2);
-
-			NodeDif(node->left->left);
-			NodeDif(node->right->right);
-			
-			return;
-		}
-
-		if(node->value == '/'){
-
-			if(is_null(node->left)){
-				MakeZeroNode(node);
-				return;
-			}
-
-			Node* divisible = node->left;
-			Node* divider = node->right;
-
-			NodeConstructor(node, '-', NODE_TYPE::OPERATION, NODE_PLACE::LEFT);
-
-			MAKE_MUL(node->left, divisible, divider, NODE_PLACE::LEFT);
-
-			MAKE_MUL(node->left, divisible, divider, NODE_PLACE::RIGHT);
-
-			MAKE_MUL(node, divider, divider, NODE_PLACE::RIGHT);
-
-			divisible->parent = NULL;
-			divider->parent   = NULL;
-
-			NodeDestructor(divisible);
-			NodeDestructor(divider);
-			
-			NodeDif(node->left->left->left);
-			NodeDif(node->left->right->right);
-
-			return;
-		}
-
-		if(node->value == '^'){
-
-			Node* foundation_node = node->left;
-			Node* degree_node     = node->right;
-
-			if(degree_node->value == 0 || foundation_node->value == 0){
-				RemoveDescendants(node);
-
-				node->type = NODE_TYPE::CONSTANT;
-				node->value = 0;
-				return;
-			}
-
-			if(check_presence_of_var(degree_node) == false){
-
-				if(check_presence_of_var(foundation_node) == false){
-					MakeZeroNode(node);
-					return;
-				}
-				else{
-
-					node->value = '*';
-
-					NodeConstructor(node, '*', NODE_TYPE::OPERATION, NODE_PLACE::LEFT);
-
-					CopyNode(node->left, degree_node, NODE_PLACE::LEFT);
-					CopyNode(node->left, foundation_node, NODE_PLACE::RIGHT);
-					NodeDif(node->left->right);
-
-					NodeConstructor(node, '^', NODE_TYPE::OPERATION, NODE_PLACE::RIGHT);
-
-					CopyNode(node->right, foundation_node, NODE_PLACE::LEFT);
-
-					NodeConstructor(node->right, '-', NODE_TYPE::OPERATION, NODE_PLACE::RIGHT);
-					CopyNode(node->right->right, degree_node, NODE_PLACE::LEFT);
-
-					NodeConstructor(node->right->right, 1, NODE_TYPE::CONSTANT, NODE_PLACE::RIGHT);
-
-					foundation_node->parent = NULL;
-					degree_node->parent     = NULL;
-
-					NodeDestructor(foundation_node);
-					NodeDestructor(degree_node);
-
-					return;
-				}
+		case '^':
+			if(!check_presence_of_var(R)){
+				Node* pow_node = POW(L, SUB(R, NodeCtor(1.0, NODE_TYPE::CONSTANT)));
+				return MUL(MUL(R, pow_node), DIFF(L));
 			}
 			else{
-				// make (a^b)' = a^b * (b' * ln(a) + b * a' / a)
+				//TODO: todo
 			}
-		}
+			break;
 
+		default:
+			ToLog(LOG_TYPE::ERROR, "Node %p has invalid oper value", node);
+			return (Node*)NODE_POISON;
+			break;
 	}
-	if(IsFunction(node)){
-		Node* arg = node->left;
 
-		if(node->value == 'L'){
-
-			node->value = '*';
-			node->type  = NODE_TYPE::OPERATION;
-
-			NodeConstructor(node, '/', NODE_TYPE::OPERATION, NODE_PLACE::LEFT);
-			NodeConstructor(node->left, 1, NODE_TYPE::CONSTANT, NODE_PLACE::LEFT);
-			CopyNode(node->left, arg, NODE_PLACE::RIGHT);
-
-			CopyNode(node, arg, NODE_PLACE::RIGHT);
-			NodeDif(node->right);
-		}
-		else if(node->value == 'S'){
-
-			node->value = '*';
-			node->type  = NODE_TYPE::OPERATION;
-
-			NodeConstructor(node, 'C', NODE_TYPE::FUNCTION, NODE_PLACE::LEFT);
-			CopyNode(node->left, arg, NODE_PLACE::LEFT);
-
-			CopyNode(node, arg, NODE_PLACE::RIGHT);
-			NodeDif(node->right);
-		}
-		else if(node->value == 'C'){
-
-			node->value = '*';
-			node->type  = NODE_TYPE::OPERATION;
-
-			NodeConstructor(node, '-', NODE_TYPE::OPERATION, NODE_PLACE::LEFT);
-			NodeConstructor(node->left, 0, NODE_TYPE::CONSTANT, NODE_PLACE::LEFT);
-
-			NodeConstructor(node->left, 'S', NODE_TYPE::FUNCTION, NODE_PLACE::RIGHT);
-			CopyNode(node->left->right, arg, NODE_PLACE::LEFT);
-
-			CopyNode(node, arg, NODE_PLACE::RIGHT);
-			NodeDif(node->right);
-		}
-
-		arg->parent = NULL;
-		NodeDestructor(arg);
-		return;
-	}
+	return (Node*)NODE_POISON;
 }
-*/
-//------------------------------------------------------------------
+//__________________________________________________________________
 
 void DestrExpr(Expr* expr){
 
@@ -270,9 +215,15 @@ void ShowExpr(Expr* expr){
 
 	ShowNode(expr->root->left);
 
-	while(node_reduction(expr->root->left)){
-		ShowNode(expr->root->left);
-	};
+	return;
+}
+//__________________________________________________________________
+
+void ReductExpr(Expr* expr){
+
+	assert(expr != NULL);
+
+	while(node_reduction(expr->root->left));
 
 	return;
 }
@@ -457,7 +408,7 @@ static bool sum_reduction(Node* node){
 
 		MakeConnection(cur_parent, node, cur_place);
 		MakeConnection(node, left, NODE_PLACE::LEFT);
-		MakeConnection(node, right, NODE_PLACE::LEFT);
+		MakeConnection(node, right, NODE_PLACE::RIGHT);
 	}
 
 	return false;
@@ -479,40 +430,52 @@ static bool pow_reduction(Node* node){
 		BreakConnWithSon(node, NODE_PLACE::LEFT);
 		BreakConnWithSon(node, NODE_PLACE::RIGHT);
 
+		bool was_reducted = false;
 		//(1) const^const
 		if(IsConstant(left) && IsConstant(right)){
 			NodeCtor(cur_parent, pow(left->value.const_val, right->value.const_val), NODE_TYPE::CONSTANT, cur_place);
 			
-			NodeFullDtor(node);
-			NodeFullDtor(left);
-			NodeFullDtor(right);
-
-			return true;
+			was_reducted = true;
 		}
 		else if(IsConstant(right) && right->value.const_val == 0){
 			NodeCtor(cur_parent, 1.0, NODE_TYPE::CONSTANT, cur_place);
 			
+			was_reducted = true;
+		}
+		else if(IsConstant(left) && left->value.const_val == 0){
+			NodeCtor(cur_parent, 0.0, NODE_TYPE::CONSTANT, cur_place);
+			
+			was_reducted = true;
+		}
+		else if(IsConstant(right) && right->value.const_val == 1){
+			CopyNode(cur_parent, left, cur_place);
+
+			was_reducted = true;
+		}
+		else if(IsConstant(left) && left->value.const_val == 1){
+			NodeCtor(cur_parent, 1.0, NODE_TYPE::CONSTANT, cur_place);
+			
+			was_reducted = true;
+		}
+
+		if(was_reducted){
 			NodeFullDtor(node);
 			NodeFullDtor(left);
 			NodeFullDtor(right);
 
 			return true;
 		}
-		
+
 		MakeConnection(cur_parent, node, cur_place);
 		MakeConnection(node, left, NODE_PLACE::LEFT);
-		MakeConnection(node, right, NODE_PLACE::LEFT);
+		MakeConnection(node, right, NODE_PLACE::RIGHT);
 	}
 
 	return false;
 }
+//__________________________________________________________________
 
-//------------------------------------------------------------------
-
-
-//------------------------------------------------------------------
-/*
-bool check_presence_of_var(Node* node){
+static bool check_presence_of_var(Node* node){
 
 	assert(node != NULL);
 
@@ -522,62 +485,48 @@ bool check_presence_of_var(Node* node){
 
 	bool has_var = false;
 
-	if(node->left != NULL){
+	if(IsValid(node->left)){
 		has_var |= check_presence_of_var(node->left);
 	}
 
-	if(node->right != NULL){
+	if(IsValid(node->right)){
 		has_var |= check_presence_of_var(node->right);
 	}
 
 	return has_var;
 }
+//__________________________________________________________________
 
-//------------------------------------------------------------------
-
-bool check_low_priority_operation(Node* node, char source_oper){
+static bool check_low_priority_operation(Node* node, char source_oper){
 
 	assert(node != NULL);
 
-	// fix
 	if(IsOperation(node)){
 
 		if(source_oper == '+' || source_oper == '-'){
 			return false;
 		}
 		else if(source_oper == '*' || source_oper == '/'){
-			if(node->value == '+' || node->value == '-') return true;
+			if(node->value.symb == '+' || node->value.symb == '-') return true;
 			else return false;
 		}
 		else if(source_oper == '^'){
-			if(node->value == '^') return false;
+			if(node->value.symb == '^') return false;
 			else return true;
 		}
 		return true;
 	}
 
-	bool has_var = false;
+	bool is_low_prior = false;
 
 	if(node->left != NULL){
-		has_var |= check_low_priority_operation(node->left, source_oper);
+		is_low_prior |= check_low_priority_operation(node->left, source_oper);
 	}
 
 	if(node->right != NULL){
-		has_var |= check_low_priority_operation(node->right, source_oper);
+		is_low_prior |= check_low_priority_operation(node->right, source_oper);
 	}
 
-	return has_var;
+	return is_low_prior;
 }
-
-//------------------------------------------------------------------
-
-
-//------------------------------------------------------------------
-
-bool is_null(Node* node){
-
-	assert(node != NULL);
-
-	return IsConstant(node) && node->value == 0;
-}
-*/
+//__________________________________________________________________
