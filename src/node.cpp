@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <cstdarg>
+#include <math.h>
 
 Node* NodeCtor(Node* parent, double val, NODE_TYPE type, NODE_PLACE place){
 
 	assert(parent != NULL);
+	assert(type   == NODE_TYPE::CONSTANT);
 
 	T_Node node_val = { .const_val = val};
 
@@ -19,7 +21,8 @@ Node* NodeCtor(Node* parent, double val, NODE_TYPE type, NODE_PLACE place){
 Node* NodeCtor(Node* parent, char val, NODE_TYPE type, NODE_PLACE place){
 
 	assert(parent != NULL);
-
+	assert(type   == NODE_TYPE::OPERATION || type == NODE_TYPE::VARIABLE);
+	
 	T_Node node_val = { .symb = val};
 	
 	return NodeCtor(parent, node_val, type, place);
@@ -55,9 +58,8 @@ Node* NodeCtor(Node* parent, T_Node val, NODE_TYPE type, NODE_PLACE place){
 
 	if(node == NULL) return NULL;
 
-	node->parent   = parent;
-
-	node->place = place;
+	node->parent = parent;
+	node->place  = place;
 
 	if(place == NODE_PLACE::LEFT){
 		if(parent != NULL) parent->left  = node;
@@ -65,7 +67,6 @@ Node* NodeCtor(Node* parent, T_Node val, NODE_TYPE type, NODE_PLACE place){
 	else{
 		if(parent != NULL) parent->right = node;
 	}
-
 	return node;
 }
 //__________________________________________________________________
@@ -304,6 +305,7 @@ void BreakConnWithSon(Node* parent, NODE_PLACE place){
 void AssignVal(Node* node, double val, NODE_TYPE type){
 
 	assert(node != NULL);
+	assert(type == NODE_TYPE::CONSTANT);
 
 	T_Node tmp = {.const_val = val};
 
@@ -315,7 +317,8 @@ void AssignVal(Node* node, double val, NODE_TYPE type){
 void AssignVal(Node* node, int val, NODE_TYPE type){
 
 	assert(node != NULL);
-
+	assert(type == NODE_TYPE::FUNCTION);
+	
 	T_Node tmp = {.func_id = val};
 
 	AssignVal(node, tmp, NODE_TYPE::FUNCTION);
@@ -357,7 +360,7 @@ bool EqualCheck(Node* node, Node* other_node){
 	if(node->type != other_node->type) return false;
 
 	if(node->type == NODE_TYPE::CONSTANT){
-		if(node->value.const_val != other_node->value.const_val) return false;
+		if(!IsEqualConst(node->value.const_val, other_node->value.const_val)) return false;
 	}
 	else if(node->type == NODE_TYPE::VARIABLE || node->type == NODE_TYPE::OPERATION){
 		if(node->value.symb != other_node->value.symb) return false;
@@ -414,3 +417,7 @@ char* GetFuncName(const int func_id){
 
 #undef DEF_FUNC
 //__________________________________________________________________
+
+bool IsEqualConst(double a, double b){
+	return fabs(a - b) < EPS;
+}

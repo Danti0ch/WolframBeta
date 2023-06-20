@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <math.h>
+#include <cstdlib>
 #include "dsl.h"
 
 //---------------LOCAL-FUNCTIONS-DECLARATION-----------------------------------------
@@ -63,12 +64,6 @@ static bool pow_reduction(Node* node);
 static bool check_presence_of_var(Node* node);
 
 /**
- * проверяет, есть ли операция, приоритет которой ниже source_oper в субдереве node
- * \return 1, если есть, 0, если нет
- */
-static bool check_low_priority_operation(Node* node, char source_oper);
-
-/**
  * возвращает значение узла node в точке arg
  */
 static double get_value_from_node(Node* node, double arg);
@@ -87,7 +82,7 @@ void InitExpr(Expr* expr){
 }
 //__________________________________________________________________
 
-Expr* DifExpr(Expr* expr, Expr* dif_expr){
+void DifExpr(Expr* expr, Expr* dif_expr, int n){
 
 	assert(expr     != NULL);
 	assert(dif_expr != NULL);
@@ -97,18 +92,26 @@ Expr* DifExpr(Expr* expr, Expr* dif_expr){
 
 	ToLog(LOG_TYPE::INFO, "attempt to diff Expr %p", expr);
 
-	ShowNode(expr->root->left);
 	while(node_reduction(expr->root->left));
 
-	Node* diffed_node = NodeDif(expr->root->left);
-
-	MakeConnection(dif_expr->root, diffed_node, NODE_PLACE::LEFT);
-
+	Node* new_diffed_node = NodeDif(expr->root->left);
+	MakeConnection(dif_expr->root, new_diffed_node, NODE_PLACE::LEFT);
 	while(node_reduction(dif_expr->root->left));
+
+	for(int i = 1; i < n; i++){
+		new_diffed_node = NodeDif(dif_expr->root->left);
+
+		NodeFullDtor(dif_expr->root->left);
+
+		MakeConnection(dif_expr->root, new_diffed_node, NODE_PLACE::LEFT);
+		new_diffed_node      = (Node*)NODE_POISON;
+
+		while(node_reduction(dif_expr->root->left));
+	}
 
 	ToLog(LOG_TYPE::INFO, "successful diff Expr %p", expr);
 	
-	return dif_expr;
+	return;
 }
 //__________________________________________________________________
 
@@ -190,7 +193,11 @@ static Node* oper_dif(Node* node){
 				return MUL(MUL(R, pow_node), DIFF(L));
 			}
 			else{
-				//TODO: todo
+
+				Node* dif_left  = MUL(DIFF(R), NodeCtor(3, NODE_TYPE::FUNCTION, CopyNode(L)));
+				Node* dif_right = MUL(MUL(R, DIV(NodeCtor(1.0, NODE_TYPE::CONSTANT), L)), DIFF(L));
+
+				return MUL(CopyNode(node), ADD(dif_left, dif_right));
 			}
 			break;
 
@@ -237,7 +244,14 @@ double GetValueExpr(Expr* expr, double arg){
 
 	assert(expr != NULL);
 
-	return get_value_from_node(expr->root->left, arg);
+	double val = get_value_from_node(expr->root->left, arg);
+
+	if(isnan(val) != 0){
+		printf("calculated NAN value, exit");
+		exit(0);
+	}
+
+	return val;
 }
 //__________________________________________________________________
 
@@ -274,12 +288,14 @@ static double get_value_from_node(Node* node, double arg){
 						double divisible = get_value_from_node(node->left, arg);
 						double divider   = get_value_from_node(node->right, arg);
 	
-						assert(fabs(divider) <= EPS);
 						return divisible / divider;
 					}
 					break;
 				case '^':
 					return pow(get_value_from_node(node->left, arg), get_value_from_node(node->right, arg));
+				default:
+					ToLog(LOG_TYPE::ERROR, "Node %p has invalid value", node);
+					return -1.0;
 			}
 
 		case (int)NODE_TYPE::FUNCTION:
@@ -289,6 +305,10 @@ static double get_value_from_node(Node* node, double arg){
 				// КОДОГЕНЕРАЦИЯ
 				#include "func_definitions.h"
 				// КОДОГЕНЕРАЦИЯ
+
+				default:
+					ToLog(LOG_TYPE::ERROR, "Node %p has invalid value", node);
+					return -1.0;
 			}
 
 		default:
@@ -336,8 +356,11 @@ static bool node_reduction(Node* node){
 	assert(node != NULL);
 
 	if(mul_reduction(node)) return true;
+
 	if(div_reduction(node)) return true;
+
 	if(sum_reduction(node)) return true;
+
 	if(pow_reduction(node)) return true;
 
 	if(IsValid(node->left)){
@@ -358,47 +381,56 @@ static bool mul_reduction(Node* node){
 
 	if(IsOperation(node) && node->value.symb == '*'){
 
-
 		Node*      cur_parent = node->parent;
 		NODE_PLACE cur_place  = node->place;
 		Node*      left       = node->left;
 		Node*      right      = node->right;
 
+		BreakConnWithParent(node);
+		
 		//(1) const * const
 		if(IsConstant(left) && IsConstant(right)){
-			Node* mul_node = NodeCtor(left->value.const_val * right->value.const_val, NODE_TYPE::CONSTANT);
+			NodeCtor(cur_parent, left->value.const_val * right->value.const_val, NODE_TYPE::CONSTANT, cur_place);
+
 			NodeFullDtor(node);
 
-			MakeConnection(cur_parent, mul_node, cur_place);
 			return true;
 		}
 
 		//(2) obj * 0 || 0 * obj
-		else if((IsConstant(left)  && left->value.const_val  == 0) ||
-			    (IsConstant(right) && right->value.const_val == 0)){
-			Node* mul_node = NodeCtor(0, NODE_TYPE::CONSTANT);
+		else if((IsConstant(left)  && IsEqualConst(left->value.const_val, 0.0)) ||
+			    (IsConstant(right) && IsEqualConst(right->value.const_val, 0))){
+			NodeCtor(cur_parent, 0, NODE_TYPE::CONSTANT, cur_place);
 
 			NodeFullDtor(node);
-
-			MakeConnection(cur_parent, mul_node, cur_place);
-
 			return true;
 		}
 
 		//(3) obj1*obj2 = obj1^2 (if obj1= obj2)
 		else if(EqualFullCheck(left, right)){
-			Node* pow_node = NodeCtor('^', NODE_TYPE::OPERATION);
+			Node* pow_node = NodeCtor(cur_parent, '^', NODE_TYPE::OPERATION, cur_place);
 
 			CopyNode(pow_node, left, NODE_PLACE::LEFT);
 			NodeCtor(pow_node, 2, NODE_TYPE::CONSTANT, NODE_PLACE::RIGHT);
 
 			NodeFullDtor(node);
-			MakeConnection(cur_parent, pow_node, cur_place);
-
 			return true;
 		}
-	}
 
+		//(4) 1*obj = obj*1 = obj
+		else if((IsConstant(left)  && IsEqualConst(left->value.const_val, 1.0)) ||
+				 (IsConstant(right) && IsEqualConst(right->value.const_val, 1.0))){
+			
+			if((IsConstant(left) && IsEqualConst(left->value.const_val, 1.0))){
+				 CopyNode(cur_parent, right, cur_place);
+			}
+			else CopyNode(cur_parent, left, cur_place);
+
+			NodeFullDtor(node);
+			return true;
+		}
+		MakeConnection(cur_parent, node, cur_place);
+	}
 	return false;
 }
 //__________________________________________________________________
@@ -409,14 +441,13 @@ static bool div_reduction(Node* node){
 
 	if(IsOperation(node) && node->value.symb == '/'){
 
-
 		Node*      cur_parent = node->parent;
 		NODE_PLACE cur_place  = node->place;
 		Node*      left       = node->left;
 		Node*      right      = node->right;
 
 		//(1) 0/obj
-		if(IsConstant(left) && left->value.const_val == 0){
+		if(IsConstant(left) && IsEqualConst(left->value.const_val, 0)){
 			Node* new_node = NodeCtor(0, NODE_TYPE::CONSTANT);
 
 			NodeFullDtor(node);
@@ -457,6 +488,7 @@ static bool sum_reduction(Node* node){
 
 		//(1) const1 +- const2 
 		if(IsConstant(left) && IsConstant(right)){
+
 			if(node->value.symb == '+'){
 				NodeCtor(cur_parent, left->value.const_val + right->value.const_val, NODE_TYPE::CONSTANT, cur_place);
 			}
@@ -465,12 +497,14 @@ static bool sum_reduction(Node* node){
 			}
 
 			NodeFullDtor(node);
+			NodeFullDtor(left);
+			NodeFullDtor(right);
 
 			return true;
 		}
 
 		//(2.1) 0 + obj
-		else if(IsConstant(left) && left->value.const_val == 0 && node->value.symb == '+'){
+		else if(IsConstant(left) && IsEqualConst(left->value.const_val, 0.0) && node->value.symb == '+'){
 			MakeConnection(cur_parent, right, cur_place);
 
 			NodeFullDtor(node);
@@ -479,7 +513,7 @@ static bool sum_reduction(Node* node){
 		}
 
 		//(2.2) obj +- 0
-		else if(IsConstant(right) && right->value.const_val == 0){
+		else if(IsConstant(right) && IsEqualConst(right->value.const_val, 0.0)){
 			MakeConnection(cur_parent, left, cur_place);
 
 			NodeFullDtor(node);
@@ -539,22 +573,22 @@ static bool pow_reduction(Node* node){
 			
 			was_reducted = true;
 		}
-		else if(IsConstant(right) && right->value.const_val == 0){
+		else if(IsConstant(right) && IsEqualConst(right->value.const_val, 0.0)){
 			NodeCtor(cur_parent, 1.0, NODE_TYPE::CONSTANT, cur_place);
 			
 			was_reducted = true;
 		}
-		else if(IsConstant(left) && left->value.const_val == 0){
+		else if(IsConstant(left) && IsEqualConst(left->value.const_val, 0.0)){
 			NodeCtor(cur_parent, 0.0, NODE_TYPE::CONSTANT, cur_place);
 			
 			was_reducted = true;
 		}
-		else if(IsConstant(right) && right->value.const_val == 1){
+		else if(IsConstant(right) && IsEqualConst(right->value.const_val, 1.0)){
 			CopyNode(cur_parent, left, cur_place);
 
 			was_reducted = true;
 		}
-		else if(IsConstant(left) && left->value.const_val == 1){
+		else if(IsConstant(left) && (IsEqualConst(left->value.const_val, 1.0))){
 			NodeCtor(cur_parent, 1.0, NODE_TYPE::CONSTANT, cur_place);
 			
 			was_reducted = true;

@@ -17,7 +17,6 @@ void LogInit(){
 
 	char name[MAX_LOG_NAME_LEN] = "";
 	get_log_name(name);
-	printf("%s\n", name);
 	log_file = fopen(name, "w");
 	assert(log_file != NULL);
 

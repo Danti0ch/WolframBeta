@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <cstdarg>
 #include <cstdlib>
+#include <math.h>
 
 static void write_node_to_teh(Node* node, FILE* output_file);
 
@@ -9,9 +10,10 @@ static bool check_low_priority_operation(Node* node, char source_oper);
 
 static void execute_term_cmd(char const * cmd_str, ...);
 
+static int factorial(int a);
 //__________________________________________________________________
 
-void LatehInit(){
+void LatehInit(Expr* expr){
 
 	FILE* teh_file = fopen(LATEH_FILE_NAME, "w");
 	
@@ -26,9 +28,13 @@ void LatehInit(){
 						"\\usepackage{fullpage}\n"
 						"\\title{WolframBeta}\n"
 						"\\begin{document}\n"
-						"\\maketitle\n\n");
-
+						"\\maketitle\n"
+						"\\section{Исходное выражение}\n\n"
+						"f(x) = ");
 	fclose(teh_file);
+
+	LatehWriteExpr(expr);
+	
 	return;
 }
 //__________________________________________________________________
@@ -48,14 +54,67 @@ void LatehWriteExpr(Expr* expr){
 }
 //__________________________________________________________________
 
-//void WriteDifExpr()
 
-//void WriteMaclorenExpr()
-//------------------------------------------------------------------
+void LatehWriteNDiffs(Expr* expr){
+
+	assert(expr != NULL);
+
+	LatehWrite("\\section{Несколько производных}\n\n");
+
+	for(int n_diff = 1; n_diff < MAX_N_DIFFS; n_diff++){
+		LatehWriteDifExpr(expr, n_diff);
+	}
+
+	return;
+}
+//__________________________________________________________________
+
+void LatehWriteMaclorenExpr(Expr* expr){
+
+	LatehWrite("\\section{Разложим в ряд Маклорена}\\\n");
+
+	LatehWriteExpr(expr);
+
+	LatehWrite(" = ");
+
+	Expr dif_expr = {};
+
+	double koef = GetValueExpr(expr, 0);
+
+	if(!IsEqualConst(koef, 0.0))
+		LatehWrite("%.3g ", koef);
+	else
+		LatehWrite("0 ");
+
+	for(int n_diff = 1; n_diff <= N_MACLORENA; n_diff++){
+
+		InitExpr(&dif_expr);
+		DifExpr(expr, &dif_expr, n_diff);
+
+		koef = GetValueExpr(&dif_expr, 0) / factorial(n_diff);
+
+		if(!IsEqualConst(koef, 0.0)){
+			if(IsEqualConst(koef, 1.0))
+				LatehWrite(" + x^{%d}", n_diff);
+			else{
+				if(fabs(koef) < 1000)
+					LatehWrite(" + %.3g \\cdot x^{%d}", koef, n_diff);
+				else
+					LatehWrite(" + (%.3g) \\cdot x^{%d}", koef, n_diff);				
+			}
+		}
+
+		DestrExpr(&dif_expr);
+	}
+
+	LatehWrite(" + o(x^{%d})\n\n\n", N_MACLORENA);
+	return;
+}
+//__________________________________________________________________
 
 #define DEF_FUNC(id, name, dif_code, val_code)		\
 	case id:										\
-		fprintf(output_file, "%s", #name);			\
+		fprintf(output_file, " \\%s", #name);			\
 		break;
 
 static void write_node_to_teh(Node* node, FILE* output_file){
@@ -68,7 +127,11 @@ static void write_node_to_teh(Node* node, FILE* output_file){
 		return;
 	}
 	else if(IsConstant(node)){
-		fprintf(output_file, "%.4g", node->value.const_val);
+		if(node->value.const_val <= -EPS || node->value.const_val >= 10000)
+			fprintf(output_file, "(%.4g)", node->value.const_val);
+		else
+			fprintf(output_file, "%.4g", node->value.const_val);
+
 	}
 	else if(IsVariable(node)){
 		fprintf(output_file, "%c", node->value.symb);
@@ -105,6 +168,9 @@ static void write_node_to_teh(Node* node, FILE* output_file){
 				break;
 			case '^':
 				fprintf(output_file, "^");
+				break;
+			default:
+				ToLog(LOG_TYPE::ERROR, "Node %p has invalid value", node->value.symb);
 				break;
 		}
 
@@ -147,23 +213,30 @@ static void write_node_to_teh(Node* node, FILE* output_file){
 #undef DEF_FUNC
 //__________________________________________________________________
 
-void LatehWriteDifExpr(Expr* expr){
+void LatehWriteDifExpr(Expr* expr, int n){
 
 	assert(expr != NULL);
 
 	LatehWrite("(");
 	LatehWriteExpr(expr);
-	LatehWrite(")^\\prime = ");
+	LatehWrite("$)^{");
+
+	for(int i = 0; i < n; i++){
+		LatehWrite("\\prime");
+	}
+	LatehWrite("}$ = ");
 
 	Expr dif_expr = {};
-
 	InitExpr(&dif_expr);
 
-	DifExpr(expr, &dif_expr);
+	DifExpr(expr, &dif_expr, n);
 
 	LatehWriteExpr(&dif_expr);
 
-	LatehWrite("\n\n");
+	DestrExpr(&dif_expr);
+	LatehWrite("\\\\");
+
+	return;
 }
 //__________________________________________________________________
 
@@ -252,4 +325,15 @@ static void execute_term_cmd(char const * cmd_str, ...){
 	free(buffer);
 
 	return;
+}
+
+static int factorial(int a){
+
+	int res = 1;
+
+	while(a > 0){
+		res *= a;
+		a--;
+	}
+	return res;
 }

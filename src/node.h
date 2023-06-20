@@ -56,6 +56,8 @@ struct Node{
 	NODE_PLACE place; //!< задаёт положение узла относительно родителя
 };
 
+const double EPS      = 1e-4;
+
 const T_Node VAL_POISON  = { .const_val = -7 };	//!< яд для поля value
 const int NODE_POISON    = 0xDEADD00D;
 
@@ -203,6 +205,9 @@ inline bool IsFunction(const Node* node){
 inline bool IsVariable(const Node* node){
 	return node->type == NODE_TYPE::VARIABLE;
 }
+//__________________________________________________________________
+
+bool IsEqualConst(double a, double b);
 //__________________________________________________________________
 
 #endif //NODE_H

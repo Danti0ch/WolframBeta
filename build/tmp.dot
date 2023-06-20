@@ -1,21 +1,11 @@
 digraph Tree{
-0[style = "filled", fillcolor = "#6ECA7B", shape = "record", label = "{adress:  00E917B0 |parent:  00E91788 |left:    00E917D8 |right:   DEADD00D |is_left: true |type:    function |value:   sin}"];
+0[style = "filled", fillcolor = "#CA6EC2", shape = "record", label = "/"];
 0->1;
-1[style = "filled", fillcolor = "#6E90CA", shape = "record", label = "{adress:  00E917D8 |parent:  00E917B0 |left:    00E91800 |right:   00E915F8 |is_left: true |type:    operation |value:   /}"];
-1->2;
-2[style = "filled", fillcolor = "#6E90CA", shape = "record", label = "{adress:  00E91800 |parent:  00E917D8 |left:    00E91828 |right:   00E91580 |is_left: true |type:    operation |value:   *}"];
+1[style = "filled", fillcolor = "#E6F099", shape = "record", label = "-1"]
+0->2;
+2[style = "filled", fillcolor = "#CA6EC2", shape = "record", label = "^"];
 2->3;
-3[style = "filled", fillcolor = "#E6F099", shape = "record", label = "{adress:  00E91828 |parent:  00E91800 |left:    DEADD00D |right:   DEADD00D |is_left: true |type:    constant |value:   2}"];
+3[style = "filled", fillcolor = "#6E90CA", shape = "record", label = "x"];
 2->4;
-4[style = "filled", fillcolor = "#6E90CA", shape = "record", label = "{adress:  00E91580 |parent:  00E91800 |left:    00E915A8 |right:   00E915D0 |is_left: false |type:    operation |value:   ^}"];
-4->5;
-5[style = "filled", fillcolor = "#6E90CA", shape = "record", label = "{adress:  00E915A8 |parent:  00E91580 |left:    DEADD00D |right:   DEADD00D |is_left: true |type:    variable |value:   x}"];
-4->6;
-6[style = "filled", fillcolor = "#E6F099", shape = "record", label = "{adress:  00E915D0 |parent:  00E91580 |left:    DEADD00D |right:   DEADD00D |is_left: false |type:    constant |value:   5}"];
-1->7;
-7[style = "filled", fillcolor = "#6E90CA", shape = "record", label = "{adress:  00E915F8 |parent:  00E917D8 |left:    00E91620 |right:   00E91648 |is_left: false |type:    operation |value:   -}"];
-7->8;
-8[style = "filled", fillcolor = "#E6F099", shape = "record", label = "{adress:  00E91620 |parent:  00E915F8 |left:    DEADD00D |right:   DEADD00D |is_left: true |type:    constant |value:   2}"];
-7->9;
-9[style = "filled", fillcolor = "#E6F099", shape = "record", label = "{adress:  00E91648 |parent:  00E915F8 |left:    DEADD00D |right:   DEADD00D |is_left: false |type:    constant |value:   4}"];
+4[style = "filled", fillcolor = "#E6F099", shape = "record", label = "2"]
 }

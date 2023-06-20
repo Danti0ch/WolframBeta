@@ -1,6 +1,6 @@
 #include "node.h"
 #include <stdio.h>
-#include <cstdlib>
+#include <stdlib.h>
 #include <cstdarg>
 #include <assert.h>
 
@@ -41,7 +41,7 @@ void ShowNode(Node* node){
 	assert(node != NULL);
 
 	char n_img_string[MAX_IMG_N_STRING_LEN] = "";
-	itoa(n_img_file, n_img_string, 10);
+	sprintf(n_img_string, "%d", n_img_file);
 
 	char image_name[FILE_NAME_LEN] = "";
 	strcpy(image_name, DUMP_IMAGE_NAME);
@@ -126,7 +126,6 @@ static void write_node_to_dot(Node const * node, int* n_node, FILE* output_file)
 								  IsLeft(node) ? "left" : "right",
 								  get_type_string(node->type));
 
-
 		if(IsConstant(node)){
 			fprintf(output_file, "value:   %.6lg}\"];\n", node->value);
 		}
@@ -142,14 +141,14 @@ static void write_node_to_dot(Node const * node, int* n_node, FILE* output_file)
 		}
 	#else
 		if(IsConstant(node)){
-			fprintf(output_file, "%d[style = \"filled\", fillcolor = \"#E6F099\", shape = \"record\", label = \"%.6lg\"]\n", cur_n_node, node->value);
+			fprintf(output_file, "%d[style = \"filled\", fillcolor = \"#E6F099\", shape = \"record\", label = \"%.3g\"]\n", cur_n_node, node->value.const_val);
 		}
 
 		else if(IsVariable(node)){
-			fprintf(output_file, "%d[style = \"filled\", fillcolor = \"#6E90CA\", shape = \"record\", label = \"%c\"];\n", cur_n_node, node->value);
+			fprintf(output_file, "%d[style = \"filled\", fillcolor = \"#6E90CA\", shape = \"record\", label = \"%c\"];\n", cur_n_node, node->value.symb);
 		}
 		else if(IsOperation(node)){
-			fprintf(output_file, "%d[style = \"filled\", fillcolor = \"#CA6EC2\", shape = \"record\", label = \"%c\"];\n", cur_n_node, node->value);			
+			fprintf(output_file, "%d[style = \"filled\", fillcolor = \"#CA6EC2\", shape = \"record\", label = \"%c\"];\n", cur_n_node, node->value.func_id);			
 		}
 		else if(IsFunction(node)){
 			fprintf(output_file, "%d[style = \"filled\", fillcolor = \"#6ECA7B\", shape = \"record\", label = \"%s\"];\n", cur_n_node, GetFuncName(node->value.func_id));
@@ -215,7 +214,7 @@ void execute_term_cmd(char const * cmd_str, ...){
 }
 //__________________________________________________________________
 
-const char* get_type_string(NODE_TYPE type){
+static const char* get_type_string(NODE_TYPE type){
 	
 	switch(type){
 		case NODE_TYPE::INVALID:
