@@ -14,4 +14,4 @@ The entered expression is converted into a binary tree taking into account the p
 
 ## Example
 For example, the output for the expression sin(x * x)^ln(3) will be as follows:
-![[sample.png]]
+<img src="res/sample.png">
