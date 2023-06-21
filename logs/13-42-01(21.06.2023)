@@ -1,0 +1,42 @@
+[INFO] 13:42:01: Logging initiated
+[INFO] 13:42:01: created Node 0x55634e90f5c0
+[INFO] 13:42:01: expression 0x7ffd80f89058 was initiated
+[INFO] 13:42:04: buffer has been read
+	buffer.data: 15+15
+	buffer.size: 6
+[INFO] 13:42:04: created Node 0x55634e90fdf0
+[INFO] 13:42:04: created Node 0x55634e90fe20
+[INFO] 13:42:04: created Node 0x55634e90fe50
+[INFO] 13:42:04: created Node 0x55634e90fe80
+[INFO] 13:42:04: copied Node 0x55634e90fdf0 to Node 0x55634e90fe80
+[INFO] 13:42:04: created Node 0x55634e90feb0
+[INFO] 13:42:04: copied Node 0x55634e90fe20 to Node 0x55634e90feb0
+[INFO] 13:42:04: created Node 0x55634e90fee0
+[INFO] 13:42:04: destruct Node 0x55634e90fe50
+[INFO] 13:42:04: destruct Node 0x55634e90fe80
+[INFO] 13:42:04: destruct Node 0x55634e90feb0
+[INFO] 13:42:04: created Node 0x55634e9100f0
+[INFO] 13:42:04: expression 0x7ffd80f88ff0 was initiated
+[INFO] 13:42:04: destruct Node 0x55634e9100f0
+[INFO] 13:42:04: created Node 0x55634e910120
+[INFO] 13:42:04: expression 0x7ffd80f88ff0 was initiated
+[INFO] 13:42:04: attempt to diff Expr 0x7ffd80f89058
+[INFO] 13:42:04: created Node 0x55634e910150
+[INFO] 13:42:04: successful diff Expr 0x7ffd80f89058
+[INFO] 13:42:04: destruct Node 0x55634e910150
+[INFO] 13:42:04: destruct Node 0x55634e910120
+[INFO] 13:42:04: created Node 0x55634e910180
+[INFO] 13:42:04: expression 0x7ffd80f88ff0 was initiated
+[INFO] 13:42:04: destruct Node 0x55634e910180
+[INFO] 13:42:04: created Node 0x55634e9101b0
+[INFO] 13:42:04: expression 0x7ffd80f88ff0 was initiated
+[INFO] 13:42:04: attempt to diff Expr 0x7ffd80f89058
+[INFO] 13:42:04: created Node 0x55634e9101e0
+[INFO] 13:42:04: created Node 0x55634e910210
+[INFO] 13:42:04: destruct Node 0x55634e9101e0
+[INFO] 13:42:04: successful diff Expr 0x7ffd80f89058
+[INFO] 13:42:04: destruct Node 0x55634e910210
+[INFO] 13:42:04: destruct Node 0x55634e9101b0
+[INFO] 13:42:04: destruct Node 0x55634e90fee0
+[INFO] 13:42:04: destruct Node 0x55634e90f5c0
+[INFO] 13:42:04: Logging closed

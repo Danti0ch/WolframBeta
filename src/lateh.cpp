@@ -29,7 +29,7 @@ void LatehInit(Expr* expr){
 						"\\title{WolframBeta}\n"
 						"\\begin{document}\n"
 						"\\maketitle\n"
-						"\\section{Исходное выражение}\n\n"
+						"\\section{Simplified expression}\n\n"
 						"f(x) = ");
 	fclose(teh_file);
 
@@ -59,7 +59,7 @@ void LatehWriteNDiffs(Expr* expr){
 
 	assert(expr != NULL);
 
-	LatehWrite("\\section{Несколько производных}\n\n");
+	LatehWrite("\\section{Multiple derivatives}\n\n");
 
 	for(int n_diff = 1; n_diff < MAX_N_DIFFS; n_diff++){
 		LatehWriteDifExpr(expr, n_diff);
@@ -273,7 +273,7 @@ void LatehClose(){
 void LatehToPdf(){
 
 	execute_term_cmd("pdflatex -interaction=batchmode %s", LATEH_FILE_NAME);
-	execute_term_cmd("%s", OUTPUT_PDF_NAME);
+	// execute_term_cmd("%s", OUTPUT_PDF_NAME);
 
 	return;
 }
@@ -311,7 +311,7 @@ static void execute_term_cmd(char const * cmd_str, ...){
 	va_list args;
     va_start(args, cmd_str);
 
-    int buflen = _vscprintf(cmd_str, args) + 1;
+    int buflen = 500; // _vscprintf(cmd_str, args) + 1;
     char *buffer = (char*)calloc(buflen, sizeof(char));
 
     if (buffer != NULL){

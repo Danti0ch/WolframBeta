@@ -196,7 +196,7 @@ void execute_term_cmd(char const * cmd_str, ...){
 	va_list args;
     va_start(args, cmd_str);
 
-    int buflen   = _vscprintf(cmd_str, args) + 1;
+    int buflen   = 500; //v(cmd_str, args) + 1;
     char *buffer = (char*)calloc(buflen, sizeof(char));
 
     if (buffer != NULL){

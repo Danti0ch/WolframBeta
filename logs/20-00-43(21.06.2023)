@@ -1,0 +1,56 @@
+[INFO] 20:00:43: Logging initiated
+[INFO] 20:00:43: created Node 0x55e9858425c0
+[INFO] 20:00:43: expression 0x7ffc6ab40628 was initiated
+[INFO] 20:00:43: buffer has been read
+	buffer.data: (5+5)*12
+	buffer.size: 9
+[INFO] 20:00:43: created Node 0x55e985842bc0
+[INFO] 20:00:43: created Node 0x55e985842bf0
+[INFO] 20:00:43: created Node 0x55e985842c20
+[INFO] 20:00:43: created Node 0x55e985842c50
+[INFO] 20:00:43: copied Node 0x55e985842bc0 to Node 0x55e985842c50
+[INFO] 20:00:43: created Node 0x55e985842c80
+[INFO] 20:00:43: copied Node 0x55e985842bf0 to Node 0x55e985842c80
+[INFO] 20:00:43: created Node 0x55e985842cb0
+[INFO] 20:00:43: created Node 0x55e985842ce0
+[INFO] 20:00:43: created Node 0x55e985842d10
+[INFO] 20:00:43: created Node 0x55e985842d40
+[INFO] 20:00:43: copied Node 0x55e985842c50 to Node 0x55e985842d40
+[INFO] 20:00:43: created Node 0x55e985842d70
+[INFO] 20:00:43: copied Node 0x55e985842c80 to Node 0x55e985842d70
+[INFO] 20:00:43: copied Node 0x55e985842c20 to Node 0x55e985842d10
+[INFO] 20:00:43: created Node 0x55e985842da0
+[INFO] 20:00:43: copied Node 0x55e985842cb0 to Node 0x55e985842da0
+[INFO] 20:00:43: created Node 0x55e985842dd0
+[INFO] 20:00:43: destruct Node 0x55e985842d10
+[INFO] 20:00:43: destruct Node 0x55e985842d40
+[INFO] 20:00:43: destruct Node 0x55e985842d70
+[INFO] 20:00:43: created Node 0x55e985842e00
+[INFO] 20:00:43: destruct Node 0x55e985842dd0
+[INFO] 20:00:43: destruct Node 0x55e985842da0
+[INFO] 20:00:43: destruct Node 0x55e985842ce0
+[INFO] 20:00:43: created Node 0x55e985843010
+[INFO] 20:00:43: expression 0x7ffc6ab405c0 was initiated
+[INFO] 20:00:43: destruct Node 0x55e985843010
+[INFO] 20:00:43: created Node 0x55e985843040
+[INFO] 20:00:43: expression 0x7ffc6ab405c0 was initiated
+[INFO] 20:00:43: attempt to diff Expr 0x7ffc6ab40628
+[INFO] 20:00:43: created Node 0x55e985843070
+[INFO] 20:00:43: successful diff Expr 0x7ffc6ab40628
+[INFO] 20:00:43: destruct Node 0x55e985843070
+[INFO] 20:00:43: destruct Node 0x55e985843040
+[INFO] 20:00:43: created Node 0x55e985843040
+[INFO] 20:00:43: expression 0x7ffc6ab405c0 was initiated
+[INFO] 20:00:43: destruct Node 0x55e985843040
+[INFO] 20:00:43: created Node 0x55e985843040
+[INFO] 20:00:43: expression 0x7ffc6ab405c0 was initiated
+[INFO] 20:00:43: attempt to diff Expr 0x7ffc6ab40628
+[INFO] 20:00:43: created Node 0x55e985843070
+[INFO] 20:00:43: created Node 0x55e9858430a0
+[INFO] 20:00:43: destruct Node 0x55e985843070
+[INFO] 20:00:43: successful diff Expr 0x7ffc6ab40628
+[INFO] 20:00:43: destruct Node 0x55e9858430a0
+[INFO] 20:00:43: destruct Node 0x55e985843040
+[INFO] 20:00:45: destruct Node 0x55e985842e00
+[INFO] 20:00:45: destruct Node 0x55e9858425c0
+[INFO] 20:00:45: Logging closed

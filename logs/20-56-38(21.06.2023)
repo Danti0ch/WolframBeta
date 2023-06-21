@@ -1,0 +1,111 @@
+[INFO] 20:56:38: Logging initiated
+[INFO] 20:56:38: created Node 0x56018f5875c0
+[INFO] 20:56:38: expression 0x7fffbc2b0078 was initiated
+[INFO] 20:56:42: buffer has been read
+	buffer.data: sin(x)
+	buffer.size: 7
+[INFO] 20:56:42: created Node 0x56018f587df0
+[INFO] 20:56:42: created Node 0x56018f587e20
+[INFO] 20:56:42: created Node 0x56018f588030
+[INFO] 20:56:42: expression 0x7fffbc2b0010 was initiated
+[INFO] 20:56:42: destruct Node 0x56018f588030
+[INFO] 20:56:42: created Node 0x56018f588060
+[INFO] 20:56:42: expression 0x7fffbc2b0010 was initiated
+[INFO] 20:56:42: attempt to diff Expr 0x7fffbc2b0078
+[INFO] 20:56:42: created Node 0x56018f588090
+[INFO] 20:56:42: created Node 0x56018f5880c0
+[INFO] 20:56:42: created Node 0x56018f5880f0
+[INFO] 20:56:42: copied Node 0x56018f587e20 to Node 0x56018f5880f0
+[INFO] 20:56:42: created Node 0x56018f588120
+[INFO] 20:56:42: created Node 0x56018f588150
+[INFO] 20:56:42: created Node 0x56018f588180
+[INFO] 20:56:42: copied Node 0x56018f5880f0 to Node 0x56018f588180
+[INFO] 20:56:42: copied Node 0x56018f5880c0 to Node 0x56018f588150
+[INFO] 20:56:42: created Node 0x56018f5881b0
+[INFO] 20:56:42: copied Node 0x56018f588090 to Node 0x56018f5881b0
+[INFO] 20:56:42: created Node 0x56018f5881e0
+[INFO] 20:56:42: created Node 0x56018f588210
+[INFO] 20:56:42: copied Node 0x56018f588180 to Node 0x56018f588210
+[INFO] 20:56:42: copied Node 0x56018f588150 to Node 0x56018f5881e0
+[INFO] 20:56:42: destruct Node 0x56018f588180
+[INFO] 20:56:42: destruct Node 0x56018f588150
+[INFO] 20:56:42: destruct Node 0x56018f5881b0
+[INFO] 20:56:42: destruct Node 0x56018f588120
+[INFO] 20:56:42: successful diff Expr 0x7fffbc2b0078
+[INFO] 20:56:42: destruct Node 0x56018f588210
+[INFO] 20:56:42: destruct Node 0x56018f5881e0
+[INFO] 20:56:42: destruct Node 0x56018f588060
+[INFO] 20:56:42: created Node 0x56018f588060
+[INFO] 20:56:42: expression 0x7fffbc2b0010 was initiated
+[INFO] 20:56:42: destruct Node 0x56018f588060
+[INFO] 20:56:42: created Node 0x56018f588060
+[INFO] 20:56:42: expression 0x7fffbc2b0010 was initiated
+[INFO] 20:56:42: attempt to diff Expr 0x7fffbc2b0078
+[INFO] 20:56:42: created Node 0x56018f588240
+[INFO] 20:56:42: created Node 0x56018f588270
+[INFO] 20:56:42: created Node 0x56018f5882a0
+[INFO] 20:56:42: copied Node 0x56018f587e20 to Node 0x56018f5882a0
+[INFO] 20:56:42: created Node 0x56018f5882d0
+[INFO] 20:56:42: created Node 0x56018f588300
+[INFO] 20:56:42: created Node 0x56018f588330
+[INFO] 20:56:42: copied Node 0x56018f5882a0 to Node 0x56018f588330
+[INFO] 20:56:42: copied Node 0x56018f588270 to Node 0x56018f588300
+[INFO] 20:56:42: created Node 0x56018f588360
+[INFO] 20:56:42: copied Node 0x56018f588240 to Node 0x56018f588360
+[INFO] 20:56:42: created Node 0x56018f588390
+[INFO] 20:56:42: created Node 0x56018f5883c0
+[INFO] 20:56:42: copied Node 0x56018f588330 to Node 0x56018f5883c0
+[INFO] 20:56:42: copied Node 0x56018f588300 to Node 0x56018f588390
+[INFO] 20:56:42: destruct Node 0x56018f588330
+[INFO] 20:56:42: destruct Node 0x56018f588300
+[INFO] 20:56:42: destruct Node 0x56018f588360
+[INFO] 20:56:42: destruct Node 0x56018f5882d0
+[INFO] 20:56:42: created Node 0x56018f5882d0
+[INFO] 20:56:42: created Node 0x56018f588360
+[INFO] 20:56:42: created Node 0x56018f588300
+[INFO] 20:56:42: copied Node 0x56018f5883c0 to Node 0x56018f588300
+[INFO] 20:56:42: created Node 0x56018f588330
+[INFO] 20:56:42: created Node 0x56018f5883f0
+[INFO] 20:56:42: created Node 0x56018f588420
+[INFO] 20:56:42: copied Node 0x56018f588330 to Node 0x56018f588420
+[INFO] 20:56:42: created Node 0x56018f588450
+[INFO] 20:56:42: created Node 0x56018f588480
+[INFO] 20:56:42: copied Node 0x56018f588300 to Node 0x56018f588480
+[INFO] 20:56:42: copied Node 0x56018f588360 to Node 0x56018f588450
+[INFO] 20:56:42: created Node 0x56018f589840
+[INFO] 20:56:42: created Node 0x56018f589870
+[INFO] 20:56:42: created Node 0x56018f5898a0
+[INFO] 20:56:42: copied Node 0x56018f588420 to Node 0x56018f5898a0
+[INFO] 20:56:42: created Node 0x56018f5898d0
+[INFO] 20:56:42: created Node 0x56018f589900
+[INFO] 20:56:42: copied Node 0x56018f588480 to Node 0x56018f589900
+[INFO] 20:56:42: copied Node 0x56018f588450 to Node 0x56018f5898d0
+[INFO] 20:56:42: copied Node 0x56018f5883f0 to Node 0x56018f589870
+[INFO] 20:56:42: created Node 0x56018f589930
+[INFO] 20:56:42: copied Node 0x56018f5882d0 to Node 0x56018f589930
+[INFO] 20:56:42: destruct Node 0x56018f5883c0
+[INFO] 20:56:42: destruct Node 0x56018f588390
+[INFO] 20:56:42: created Node 0x56018f588390
+[INFO] 20:56:42: created Node 0x56018f5883c0
+[INFO] 20:56:42: copied Node 0x56018f5898a0 to Node 0x56018f5883c0
+[INFO] 20:56:42: created Node 0x56018f589960
+[INFO] 20:56:42: created Node 0x56018f589990
+[INFO] 20:56:42: copied Node 0x56018f589900 to Node 0x56018f589990
+[INFO] 20:56:42: copied Node 0x56018f5898d0 to Node 0x56018f589960
+[INFO] 20:56:42: copied Node 0x56018f589870 to Node 0x56018f588390
+[INFO] 20:56:42: destruct Node 0x56018f5898a0
+[INFO] 20:56:42: destruct Node 0x56018f589900
+[INFO] 20:56:42: destruct Node 0x56018f5898d0
+[INFO] 20:56:42: destruct Node 0x56018f589870
+[INFO] 20:56:42: destruct Node 0x56018f589930
+[INFO] 20:56:42: destruct Node 0x56018f589840
+[INFO] 20:56:42: successful diff Expr 0x7fffbc2b0078
+[INFO] 20:56:42: destruct Node 0x56018f5883c0
+[INFO] 20:56:42: destruct Node 0x56018f589990
+[INFO] 20:56:42: destruct Node 0x56018f589960
+[INFO] 20:56:42: destruct Node 0x56018f588390
+[INFO] 20:56:42: destruct Node 0x56018f588060
+[INFO] 20:56:42: destruct Node 0x56018f587e20
+[INFO] 20:56:42: destruct Node 0x56018f587df0
+[INFO] 20:56:42: destruct Node 0x56018f5875c0
+[INFO] 20:56:42: Logging closed

@@ -1,0 +1,777 @@
+[INFO] 21:04:36: Logging initiated
+[INFO] 21:04:36: created Node 0x5594ddb605c0
+[INFO] 21:04:36: expression 0x7ffc70a931c8 was initiated
+[INFO] 21:04:45: buffer has been read
+	buffer.data: ln(x*x)
+	buffer.size: 8
+[INFO] 21:04:45: created Node 0x5594ddb60df0
+[INFO] 21:04:45: created Node 0x5594ddb60e20
+[INFO] 21:04:45: created Node 0x5594ddb60e50
+[INFO] 21:04:45: created Node 0x5594ddb60e80
+[INFO] 21:04:45: created Node 0x5594ddb60eb0
+[INFO] 21:04:45: copied Node 0x5594ddb60e20 to Node 0x5594ddb60eb0
+[INFO] 21:04:45: created Node 0x5594ddb60ee0
+[INFO] 21:04:45: copied Node 0x5594ddb60e50 to Node 0x5594ddb60ee0
+[INFO] 21:04:45: created Node 0x5594ddb60f10
+[INFO] 21:04:45: created Node 0x5594ddb60f40
+[INFO] 21:04:45: copied Node 0x5594ddb60eb0 to Node 0x5594ddb60f40
+[INFO] 21:04:45: created Node 0x5594ddb60f70
+[INFO] 21:04:45: destruct Node 0x5594ddb60eb0
+[INFO] 21:04:45: destruct Node 0x5594ddb60ee0
+[INFO] 21:04:45: destruct Node 0x5594ddb60e80
+[INFO] 21:04:45: created Node 0x5594ddb61180
+[INFO] 21:04:45: expression 0x7ffc70a93160 was initiated
+[INFO] 21:04:45: destruct Node 0x5594ddb61180
+[INFO] 21:04:45: created Node 0x5594ddb611b0
+[INFO] 21:04:45: expression 0x7ffc70a93160 was initiated
+[INFO] 21:04:45: attempt to diff Expr 0x7ffc70a931c8
+[INFO] 21:04:45: created Node 0x5594ddb611e0
+[INFO] 21:04:45: created Node 0x5594ddb61210
+[INFO] 21:04:45: created Node 0x5594ddb61240
+[INFO] 21:04:45: copied Node 0x5594ddb60f70 to Node 0x5594ddb61240
+[INFO] 21:04:45: created Node 0x5594ddb61270
+[INFO] 21:04:45: copied Node 0x5594ddb611e0 to Node 0x5594ddb61270
+[INFO] 21:04:45: created Node 0x5594ddb612a0
+[INFO] 21:04:45: created Node 0x5594ddb612d0
+[INFO] 21:04:45: copied Node 0x5594ddb60f40 to Node 0x5594ddb612d0
+[INFO] 21:04:45: created Node 0x5594ddb61300
+[INFO] 21:04:45: created Node 0x5594ddb61330
+[INFO] 21:04:45: copied Node 0x5594ddb61240 to Node 0x5594ddb61330
+[INFO] 21:04:45: created Node 0x5594ddb61360
+[INFO] 21:04:45: copied Node 0x5594ddb61270 to Node 0x5594ddb61360
+[INFO] 21:04:45: copied Node 0x5594ddb61210 to Node 0x5594ddb61300
+[INFO] 21:04:45: created Node 0x5594ddb61390
+[INFO] 21:04:45: created Node 0x5594ddb613c0
+[INFO] 21:04:45: created Node 0x5594ddb613f0
+[INFO] 21:04:45: copied Node 0x5594ddb60f70 to Node 0x5594ddb613f0
+[INFO] 21:04:45: created Node 0x5594ddb61420
+[INFO] 21:04:45: created Node 0x5594ddb61450
+[INFO] 21:04:45: copied Node 0x5594ddb612d0 to Node 0x5594ddb61450
+[INFO] 21:04:45: created Node 0x5594ddb61480
+[INFO] 21:04:45: created Node 0x5594ddb62840
+[INFO] 21:04:45: copied Node 0x5594ddb61330 to Node 0x5594ddb62840
+[INFO] 21:04:45: created Node 0x5594ddb62870
+[INFO] 21:04:45: copied Node 0x5594ddb61360 to Node 0x5594ddb62870
+[INFO] 21:04:45: copied Node 0x5594ddb61300 to Node 0x5594ddb61480
+[INFO] 21:04:45: copied Node 0x5594ddb612a0 to Node 0x5594ddb61420
+[INFO] 21:04:45: created Node 0x5594ddb628a0
+[INFO] 21:04:45: created Node 0x5594ddb628d0
+[INFO] 21:04:45: created Node 0x5594ddb62900
+[INFO] 21:04:45: copied Node 0x5594ddb613f0 to Node 0x5594ddb62900
+[INFO] 21:04:45: created Node 0x5594ddb62930
+[INFO] 21:04:45: created Node 0x5594ddb62960
+[INFO] 21:04:45: copied Node 0x5594ddb61450 to Node 0x5594ddb62960
+[INFO] 21:04:45: created Node 0x5594ddb62990
+[INFO] 21:04:45: created Node 0x5594ddb629c0
+[INFO] 21:04:45: copied Node 0x5594ddb62840 to Node 0x5594ddb629c0
+[INFO] 21:04:45: created Node 0x5594ddb629f0
+[INFO] 21:04:45: copied Node 0x5594ddb62870 to Node 0x5594ddb629f0
+[INFO] 21:04:45: copied Node 0x5594ddb61480 to Node 0x5594ddb62990
+[INFO] 21:04:45: copied Node 0x5594ddb61420 to Node 0x5594ddb62930
+[INFO] 21:04:45: copied Node 0x5594ddb613c0 to Node 0x5594ddb628d0
+[INFO] 21:04:45: created Node 0x5594ddb62a20
+[INFO] 21:04:45: copied Node 0x5594ddb61390 to Node 0x5594ddb62a20
+[INFO] 21:04:45: created Node 0x5594ddb62a50
+[INFO] 21:04:45: created Node 0x5594ddb62a80
+[INFO] 21:04:45: created Node 0x5594ddb62ab0
+[INFO] 21:04:45: copied Node 0x5594ddb62a50 to Node 0x5594ddb62ab0
+[INFO] 21:04:45: created Node 0x5594ddb62ae0
+[INFO] 21:04:45: created Node 0x5594ddb62b10
+[INFO] 21:04:45: copied Node 0x5594ddb60f40 to Node 0x5594ddb62b10
+[INFO] 21:04:45: created Node 0x5594ddb62b40
+[INFO] 21:04:45: copied Node 0x5594ddb60f70 to Node 0x5594ddb62b40
+[INFO] 21:04:45: copied Node 0x5594ddb60f10 to Node 0x5594ddb62ae0
+[INFO] 21:04:45: created Node 0x5594ddb62b70
+[INFO] 21:04:45: created Node 0x5594ddb62ba0
+[INFO] 21:04:45: created Node 0x5594ddb62bd0
+[INFO] 21:04:45: copied Node 0x5594ddb62ab0 to Node 0x5594ddb62bd0
+[INFO] 21:04:45: created Node 0x5594ddb62c00
+[INFO] 21:04:45: created Node 0x5594ddb62c30
+[INFO] 21:04:45: copied Node 0x5594ddb62b10 to Node 0x5594ddb62c30
+[INFO] 21:04:45: created Node 0x5594ddb62c60
+[INFO] 21:04:45: copied Node 0x5594ddb62b40 to Node 0x5594ddb62c60
+[INFO] 21:04:45: copied Node 0x5594ddb62ae0 to Node 0x5594ddb62c00
+[INFO] 21:04:45: copied Node 0x5594ddb62a80 to Node 0x5594ddb62ba0
+[INFO] 21:04:45: created Node 0x5594ddb62c90
+[INFO] 21:04:45: created Node 0x5594ddb62cc0
+[INFO] 21:04:45: created Node 0x5594ddb62cf0
+[INFO] 21:04:45: copied Node 0x5594ddb62900 to Node 0x5594ddb62cf0
+[INFO] 21:04:45: created Node 0x5594ddb62d20
+[INFO] 21:04:45: created Node 0x5594ddb62d50
+[INFO] 21:04:45: copied Node 0x5594ddb62960 to Node 0x5594ddb62d50
+[INFO] 21:04:45: created Node 0x5594ddb62d80
+[INFO] 21:04:45: created Node 0x5594ddb62db0
+[INFO] 21:04:45: copied Node 0x5594ddb629c0 to Node 0x5594ddb62db0
+[INFO] 21:04:45: created Node 0x5594ddb62de0
+[INFO] 21:04:45: copied Node 0x5594ddb629f0 to Node 0x5594ddb62de0
+[INFO] 21:04:45: copied Node 0x5594ddb62990 to Node 0x5594ddb62d80
+[INFO] 21:04:45: copied Node 0x5594ddb62930 to Node 0x5594ddb62d20
+[INFO] 21:04:45: copied Node 0x5594ddb628d0 to Node 0x5594ddb62cc0
+[INFO] 21:04:45: created Node 0x5594ddb62e10
+[INFO] 21:04:45: copied Node 0x5594ddb62a20 to Node 0x5594ddb62e10
+[INFO] 21:04:45: copied Node 0x5594ddb628a0 to Node 0x5594ddb62c90
+[INFO] 21:04:45: created Node 0x5594ddb62e40
+[INFO] 21:04:45: created Node 0x5594ddb62e70
+[INFO] 21:04:45: copied Node 0x5594ddb62cf0 to Node 0x5594ddb62e70
+[INFO] 21:04:45: created Node 0x5594ddb62ea0
+[INFO] 21:04:45: created Node 0x5594ddb62ed0
+[INFO] 21:04:45: copied Node 0x5594ddb62d50 to Node 0x5594ddb62ed0
+[INFO] 21:04:45: created Node 0x5594ddb62f00
+[INFO] 21:04:45: created Node 0x5594ddb62f30
+[INFO] 21:04:45: copied Node 0x5594ddb62db0 to Node 0x5594ddb62f30
+[INFO] 21:04:45: created Node 0x5594ddb62f60
+[INFO] 21:04:45: copied Node 0x5594ddb62de0 to Node 0x5594ddb62f60
+[INFO] 21:04:45: copied Node 0x5594ddb62d80 to Node 0x5594ddb62f00
+[INFO] 21:04:45: copied Node 0x5594ddb62d20 to Node 0x5594ddb62ea0
+[INFO] 21:04:45: copied Node 0x5594ddb62cc0 to Node 0x5594ddb62e40
+[INFO] 21:04:45: destruct Node 0x5594ddb62cf0
+[INFO] 21:04:45: destruct Node 0x5594ddb62d50
+[INFO] 21:04:45: destruct Node 0x5594ddb62db0
+[INFO] 21:04:45: destruct Node 0x5594ddb62de0
+[INFO] 21:04:45: destruct Node 0x5594ddb62d80
+[INFO] 21:04:45: destruct Node 0x5594ddb62d20
+[INFO] 21:04:45: destruct Node 0x5594ddb62cc0
+[INFO] 21:04:45: destruct Node 0x5594ddb62e10
+[INFO] 21:04:45: destruct Node 0x5594ddb62c90
+[INFO] 21:04:45: created Node 0x5594ddb62c90
+[INFO] 21:04:45: destruct Node 0x5594ddb62f00
+[INFO] 21:04:45: destruct Node 0x5594ddb62f30
+[INFO] 21:04:45: destruct Node 0x5594ddb62f60
+[INFO] 21:04:45: created Node 0x5594ddb62f60
+[INFO] 21:04:45: copied Node 0x5594ddb62ed0 to Node 0x5594ddb62f60
+[INFO] 21:04:45: destruct Node 0x5594ddb62ea0
+[INFO] 21:04:45: destruct Node 0x5594ddb62ed0
+[INFO] 21:04:45: destruct Node 0x5594ddb62c90
+[INFO] 21:04:45: successful diff Expr 0x7ffc70a931c8
+[ERROR] 21:04:45: Node 0x2f has invalid value
+[INFO] 21:04:45: destruct Node 0x5594ddb62bd0
+[INFO] 21:04:45: destruct Node 0x5594ddb62c30
+[INFO] 21:04:45: destruct Node 0x5594ddb62c60
+[INFO] 21:04:45: destruct Node 0x5594ddb62c00
+[INFO] 21:04:45: destruct Node 0x5594ddb62ba0
+[INFO] 21:04:45: destruct Node 0x5594ddb62e70
+[INFO] 21:04:45: destruct Node 0x5594ddb62f60
+[INFO] 21:04:45: destruct Node 0x5594ddb62e40
+[INFO] 21:04:45: destruct Node 0x5594ddb62b70
+[INFO] 21:04:45: destruct Node 0x5594ddb611b0
+[INFO] 21:04:45: created Node 0x5594ddb62d20
+[INFO] 21:04:45: expression 0x7ffc70a93160 was initiated
+[INFO] 21:04:45: destruct Node 0x5594ddb62d20
+[INFO] 21:04:45: created Node 0x5594ddb62d20
+[INFO] 21:04:45: expression 0x7ffc70a93160 was initiated
+[INFO] 21:04:45: attempt to diff Expr 0x7ffc70a931c8
+[INFO] 21:04:45: created Node 0x5594ddb62d80
+[INFO] 21:04:45: created Node 0x5594ddb611b0
+[INFO] 21:04:45: created Node 0x5594ddb62b70
+[INFO] 21:04:45: copied Node 0x5594ddb60f70 to Node 0x5594ddb62b70
+[INFO] 21:04:45: created Node 0x5594ddb62ba0
+[INFO] 21:04:45: copied Node 0x5594ddb62d80 to Node 0x5594ddb62ba0
+[INFO] 21:04:45: created Node 0x5594ddb62bd0
+[INFO] 21:04:45: created Node 0x5594ddb62c00
+[INFO] 21:04:45: copied Node 0x5594ddb60f40 to Node 0x5594ddb62c00
+[INFO] 21:04:45: created Node 0x5594ddb62c30
+[INFO] 21:04:45: created Node 0x5594ddb62c60
+[INFO] 21:04:45: copied Node 0x5594ddb62b70 to Node 0x5594ddb62c60
+[INFO] 21:04:45: created Node 0x5594ddb62c90
+[INFO] 21:04:45: copied Node 0x5594ddb62ba0 to Node 0x5594ddb62c90
+[INFO] 21:04:45: copied Node 0x5594ddb611b0 to Node 0x5594ddb62c30
+[INFO] 21:04:45: created Node 0x5594ddb62cc0
+[INFO] 21:04:45: created Node 0x5594ddb62de0
+[INFO] 21:04:45: created Node 0x5594ddb62e10
+[INFO] 21:04:45: copied Node 0x5594ddb60f70 to Node 0x5594ddb62e10
+[INFO] 21:04:45: created Node 0x5594ddb62e40
+[INFO] 21:04:45: created Node 0x5594ddb62e70
+[INFO] 21:04:45: copied Node 0x5594ddb62c00 to Node 0x5594ddb62e70
+[INFO] 21:04:45: created Node 0x5594ddb62ea0
+[INFO] 21:04:45: created Node 0x5594ddb62ed0
+[INFO] 21:04:45: copied Node 0x5594ddb62c60 to Node 0x5594ddb62ed0
+[INFO] 21:04:45: created Node 0x5594ddb62f00
+[INFO] 21:04:45: copied Node 0x5594ddb62c90 to Node 0x5594ddb62f00
+[INFO] 21:04:45: copied Node 0x5594ddb62c30 to Node 0x5594ddb62ea0
+[INFO] 21:04:45: copied Node 0x5594ddb62bd0 to Node 0x5594ddb62e40
+[INFO] 21:04:45: created Node 0x5594ddb62f30
+[INFO] 21:04:45: created Node 0x5594ddb62f60
+[INFO] 21:04:45: created Node 0x5594ddb62f90
+[INFO] 21:04:45: copied Node 0x5594ddb62e10 to Node 0x5594ddb62f90
+[INFO] 21:04:45: created Node 0x5594ddb62fc0
+[INFO] 21:04:45: created Node 0x5594ddb62ff0
+[INFO] 21:04:45: copied Node 0x5594ddb62e70 to Node 0x5594ddb62ff0
+[INFO] 21:04:45: created Node 0x5594ddb63020
+[INFO] 21:04:45: created Node 0x5594ddb63050
+[INFO] 21:04:45: copied Node 0x5594ddb62ed0 to Node 0x5594ddb63050
+[INFO] 21:04:45: created Node 0x5594ddb63080
+[INFO] 21:04:45: copied Node 0x5594ddb62f00 to Node 0x5594ddb63080
+[INFO] 21:04:45: copied Node 0x5594ddb62ea0 to Node 0x5594ddb63020
+[INFO] 21:04:45: copied Node 0x5594ddb62e40 to Node 0x5594ddb62fc0
+[INFO] 21:04:45: copied Node 0x5594ddb62de0 to Node 0x5594ddb62f60
+[INFO] 21:04:45: created Node 0x5594ddb630b0
+[INFO] 21:04:45: copied Node 0x5594ddb62cc0 to Node 0x5594ddb630b0
+[INFO] 21:04:45: created Node 0x5594ddb630e0
+[INFO] 21:04:45: created Node 0x5594ddb63110
+[INFO] 21:04:45: created Node 0x5594ddb63140
+[INFO] 21:04:45: copied Node 0x5594ddb630e0 to Node 0x5594ddb63140
+[INFO] 21:04:45: created Node 0x5594ddb63170
+[INFO] 21:04:45: created Node 0x5594ddb631a0
+[INFO] 21:04:45: copied Node 0x5594ddb60f40 to Node 0x5594ddb631a0
+[INFO] 21:04:45: created Node 0x5594ddb631d0
+[INFO] 21:04:45: copied Node 0x5594ddb60f70 to Node 0x5594ddb631d0
+[INFO] 21:04:45: copied Node 0x5594ddb60f10 to Node 0x5594ddb63170
+[INFO] 21:04:45: created Node 0x5594ddb63200
+[INFO] 21:04:45: created Node 0x5594ddb63230
+[INFO] 21:04:45: created Node 0x5594ddb63260
+[INFO] 21:04:45: copied Node 0x5594ddb63140 to Node 0x5594ddb63260
+[INFO] 21:04:45: created Node 0x5594ddb63290
+[INFO] 21:04:45: created Node 0x5594ddb632c0
+[INFO] 21:04:45: copied Node 0x5594ddb631a0 to Node 0x5594ddb632c0
+[INFO] 21:04:45: created Node 0x5594ddb632f0
+[INFO] 21:04:45: copied Node 0x5594ddb631d0 to Node 0x5594ddb632f0
+[INFO] 21:04:45: copied Node 0x5594ddb63170 to Node 0x5594ddb63290
+[INFO] 21:04:45: copied Node 0x5594ddb63110 to Node 0x5594ddb63230
+[INFO] 21:04:45: created Node 0x5594ddb63320
+[INFO] 21:04:45: created Node 0x5594ddb63350
+[INFO] 21:04:45: created Node 0x5594ddb63380
+[INFO] 21:04:45: copied Node 0x5594ddb62f90 to Node 0x5594ddb63380
+[INFO] 21:04:45: created Node 0x5594ddb633b0
+[INFO] 21:04:45: created Node 0x5594ddb633e0
+[INFO] 21:04:45: copied Node 0x5594ddb62ff0 to Node 0x5594ddb633e0
+[INFO] 21:04:45: created Node 0x5594ddb63410
+[INFO] 21:04:45: created Node 0x5594ddb63440
+[INFO] 21:04:45: copied Node 0x5594ddb63050 to Node 0x5594ddb63440
+[INFO] 21:04:45: created Node 0x5594ddb63470
+[INFO] 21:04:45: copied Node 0x5594ddb63080 to Node 0x5594ddb63470
+[INFO] 21:04:45: copied Node 0x5594ddb63020 to Node 0x5594ddb63410
+[INFO] 21:04:45: copied Node 0x5594ddb62fc0 to Node 0x5594ddb633b0
+[INFO] 21:04:45: copied Node 0x5594ddb62f60 to Node 0x5594ddb63350
+[INFO] 21:04:45: created Node 0x5594ddb634a0
+[INFO] 21:04:45: copied Node 0x5594ddb630b0 to Node 0x5594ddb634a0
+[INFO] 21:04:45: copied Node 0x5594ddb62f30 to Node 0x5594ddb63320
+[INFO] 21:04:45: created Node 0x5594ddb634d0
+[INFO] 21:04:45: created Node 0x5594ddb63500
+[INFO] 21:04:45: copied Node 0x5594ddb63380 to Node 0x5594ddb63500
+[INFO] 21:04:45: created Node 0x5594ddb63530
+[INFO] 21:04:45: created Node 0x5594ddb63560
+[INFO] 21:04:45: copied Node 0x5594ddb633e0 to Node 0x5594ddb63560
+[INFO] 21:04:45: created Node 0x5594ddb63590
+[INFO] 21:04:45: created Node 0x5594ddb635c0
+[INFO] 21:04:45: copied Node 0x5594ddb63440 to Node 0x5594ddb635c0
+[INFO] 21:04:45: created Node 0x5594ddb635f0
+[INFO] 21:04:45: copied Node 0x5594ddb63470 to Node 0x5594ddb635f0
+[INFO] 21:04:45: copied Node 0x5594ddb63410 to Node 0x5594ddb63590
+[INFO] 21:04:45: copied Node 0x5594ddb633b0 to Node 0x5594ddb63530
+[INFO] 21:04:45: copied Node 0x5594ddb63350 to Node 0x5594ddb634d0
+[INFO] 21:04:45: destruct Node 0x5594ddb63380
+[INFO] 21:04:45: destruct Node 0x5594ddb633e0
+[INFO] 21:04:45: destruct Node 0x5594ddb63440
+[INFO] 21:04:45: destruct Node 0x5594ddb63470
+[INFO] 21:04:45: destruct Node 0x5594ddb63410
+[INFO] 21:04:45: destruct Node 0x5594ddb633b0
+[INFO] 21:04:45: destruct Node 0x5594ddb63350
+[INFO] 21:04:45: destruct Node 0x5594ddb634a0
+[INFO] 21:04:45: destruct Node 0x5594ddb63320
+[INFO] 21:04:45: created Node 0x5594ddb63320
+[INFO] 21:04:45: destruct Node 0x5594ddb63590
+[INFO] 21:04:45: destruct Node 0x5594ddb635c0
+[INFO] 21:04:45: destruct Node 0x5594ddb635f0
+[INFO] 21:04:45: created Node 0x5594ddb635f0
+[INFO] 21:04:45: copied Node 0x5594ddb63560 to Node 0x5594ddb635f0
+[INFO] 21:04:45: destruct Node 0x5594ddb63530
+[INFO] 21:04:45: destruct Node 0x5594ddb63560
+[INFO] 21:04:45: destruct Node 0x5594ddb63320
+[INFO] 21:04:45: created Node 0x5594ddb63320
+[INFO] 21:04:45: created Node 0x5594ddb63560
+[INFO] 21:04:45: created Node 0x5594ddb63530
+[INFO] 21:04:45: copied Node 0x5594ddb63500 to Node 0x5594ddb63530
+[INFO] 21:04:45: created Node 0x5594ddb635c0
+[INFO] 21:04:45: copied Node 0x5594ddb63320 to Node 0x5594ddb635c0
+[INFO] 21:04:45: created Node 0x5594ddb63590
+[INFO] 21:04:45: created Node 0x5594ddb634a0
+[INFO] 21:04:45: created Node 0x5594ddb63350
+[INFO] 21:04:45: copied Node 0x5594ddb63590 to Node 0x5594ddb63350
+[INFO] 21:04:45: created Node 0x5594ddb633b0
+[INFO] 21:04:45: copied Node 0x5594ddb635f0 to Node 0x5594ddb633b0
+[INFO] 21:04:45: created Node 0x5594ddb63410
+[INFO] 21:04:45: created Node 0x5594ddb63470
+[INFO] 21:04:45: created Node 0x5594ddb63440
+[INFO] 21:04:45: copied Node 0x5594ddb63350 to Node 0x5594ddb63440
+[INFO] 21:04:45: created Node 0x5594ddb633e0
+[INFO] 21:04:45: copied Node 0x5594ddb633b0 to Node 0x5594ddb633e0
+[INFO] 21:04:45: copied Node 0x5594ddb634a0 to Node 0x5594ddb63470
+[INFO] 21:04:45: created Node 0x5594ddb63380
+[INFO] 21:04:45: created Node 0x5594ddb63620
+[INFO] 21:04:45: copied Node 0x5594ddb63530 to Node 0x5594ddb63620
+[INFO] 21:04:45: created Node 0x5594ddb63650
+[INFO] 21:04:45: copied Node 0x5594ddb635c0 to Node 0x5594ddb63650
+[INFO] 21:04:45: copied Node 0x5594ddb63560 to Node 0x5594ddb63380
+[INFO] 21:04:45: created Node 0x5594ddb63680
+[INFO] 21:04:45: created Node 0x5594ddb636b0
+[INFO] 21:04:45: created Node 0x5594ddb636e0
+[INFO] 21:04:45: copied Node 0x5594ddb63260 to Node 0x5594ddb636e0
+[INFO] 21:04:45: created Node 0x5594ddb63710
+[INFO] 21:04:45: created Node 0x5594ddb63740
+[INFO] 21:04:45: copied Node 0x5594ddb632c0 to Node 0x5594ddb63740
+[INFO] 21:04:45: created Node 0x5594ddb63770
+[INFO] 21:04:45: copied Node 0x5594ddb632f0 to Node 0x5594ddb63770
+[INFO] 21:04:45: copied Node 0x5594ddb63290 to Node 0x5594ddb63710
+[INFO] 21:04:45: copied Node 0x5594ddb63230 to Node 0x5594ddb636b0
+[INFO] 21:04:45: created Node 0x5594ddb637a0
+[INFO] 21:04:45: created Node 0x5594ddb637d0
+[INFO] 21:04:45: created Node 0x5594ddb63800
+[INFO] 21:04:45: copied Node 0x5594ddb63440 to Node 0x5594ddb63800
+[INFO] 21:04:45: created Node 0x5594ddb63830
+[INFO] 21:04:45: copied Node 0x5594ddb633e0 to Node 0x5594ddb63830
+[INFO] 21:04:45: copied Node 0x5594ddb63470 to Node 0x5594ddb637d0
+[INFO] 21:04:45: created Node 0x5594ddb63860
+[INFO] 21:04:45: created Node 0x5594ddb63890
+[INFO] 21:04:45: copied Node 0x5594ddb63620 to Node 0x5594ddb63890
+[INFO] 21:04:45: created Node 0x5594ddb638c0
+[INFO] 21:04:45: copied Node 0x5594ddb63650 to Node 0x5594ddb638c0
+[INFO] 21:04:45: copied Node 0x5594ddb63380 to Node 0x5594ddb63860
+[INFO] 21:04:45: copied Node 0x5594ddb63410 to Node 0x5594ddb637a0
+[INFO] 21:04:45: created Node 0x5594ddb638f0
+[INFO] 21:04:45: created Node 0x5594ddb63920
+[INFO] 21:04:45: created Node 0x5594ddb63950
+[INFO] 21:04:45: copied Node 0x5594ddb632c0 to Node 0x5594ddb63950
+[INFO] 21:04:45: created Node 0x5594ddb63980
+[INFO] 21:04:45: copied Node 0x5594ddb632f0 to Node 0x5594ddb63980
+[INFO] 21:04:45: copied Node 0x5594ddb63290 to Node 0x5594ddb63920
+[INFO] 21:04:45: created Node 0x5594ddb639b0
+[INFO] 21:04:45: created Node 0x5594ddb639e0
+[INFO] 21:04:45: copied Node 0x5594ddb632c0 to Node 0x5594ddb639e0
+[INFO] 21:04:45: created Node 0x5594ddb63a10
+[INFO] 21:04:45: copied Node 0x5594ddb632f0 to Node 0x5594ddb63a10
+[INFO] 21:04:45: copied Node 0x5594ddb63290 to Node 0x5594ddb639b0
+[INFO] 21:04:45: created Node 0x5594ddb63a40
+[INFO] 21:04:45: created Node 0x5594ddb63a70
+[INFO] 21:04:45: created Node 0x5594ddb63aa0
+[INFO] 21:04:45: copied Node 0x5594ddb632f0 to Node 0x5594ddb63aa0
+[INFO] 21:04:45: created Node 0x5594ddb63ad0
+[INFO] 21:04:45: copied Node 0x5594ddb63a40 to Node 0x5594ddb63ad0
+[INFO] 21:04:45: created Node 0x5594ddb63b00
+[INFO] 21:04:45: created Node 0x5594ddb63b30
+[INFO] 21:04:45: copied Node 0x5594ddb632c0 to Node 0x5594ddb63b30
+[INFO] 21:04:45: created Node 0x5594ddb63b60
+[INFO] 21:04:45: created Node 0x5594ddb63b90
+[INFO] 21:04:45: copied Node 0x5594ddb63aa0 to Node 0x5594ddb63b90
+[INFO] 21:04:45: created Node 0x5594ddb63bc0
+[INFO] 21:04:45: copied Node 0x5594ddb63ad0 to Node 0x5594ddb63bc0
+[INFO] 21:04:45: copied Node 0x5594ddb63a70 to Node 0x5594ddb63b60
+[INFO] 21:04:45: created Node 0x5594ddb63bf0
+[INFO] 21:04:45: created Node 0x5594ddb63c20
+[INFO] 21:04:45: created Node 0x5594ddb63c50
+[INFO] 21:04:45: copied Node 0x5594ddb632f0 to Node 0x5594ddb63c50
+[INFO] 21:04:45: created Node 0x5594ddb63c80
+[INFO] 21:04:45: created Node 0x5594ddb63cb0
+[INFO] 21:04:45: copied Node 0x5594ddb63b30 to Node 0x5594ddb63cb0
+[INFO] 21:04:45: created Node 0x5594ddb63ce0
+[INFO] 21:04:45: created Node 0x5594ddb63d10
+[INFO] 21:04:45: copied Node 0x5594ddb63b90 to Node 0x5594ddb63d10
+[INFO] 21:04:45: created Node 0x5594ddb63d40
+[INFO] 21:04:45: copied Node 0x5594ddb63bc0 to Node 0x5594ddb63d40
+[INFO] 21:04:45: copied Node 0x5594ddb63b60 to Node 0x5594ddb63ce0
+[INFO] 21:04:45: copied Node 0x5594ddb63b00 to Node 0x5594ddb63c80
+[INFO] 21:04:45: created Node 0x5594ddb63d70
+[INFO] 21:04:45: created Node 0x5594ddb63da0
+[INFO] 21:04:45: created Node 0x5594ddb63dd0
+[INFO] 21:04:45: copied Node 0x5594ddb63c50 to Node 0x5594ddb63dd0
+[INFO] 21:04:45: created Node 0x5594ddb63e00
+[INFO] 21:04:45: created Node 0x5594ddb63e30
+[INFO] 21:04:45: copied Node 0x5594ddb63cb0 to Node 0x5594ddb63e30
+[INFO] 21:04:45: created Node 0x5594ddb63e60
+[INFO] 21:04:45: created Node 0x5594ddb63e90
+[INFO] 21:04:45: copied Node 0x5594ddb63d10 to Node 0x5594ddb63e90
+[INFO] 21:04:45: created Node 0x5594ddb63ec0
+[INFO] 21:04:45: copied Node 0x5594ddb63d40 to Node 0x5594ddb63ec0
+[INFO] 21:04:45: copied Node 0x5594ddb63ce0 to Node 0x5594ddb63e60
+[INFO] 21:04:45: copied Node 0x5594ddb63c80 to Node 0x5594ddb63e00
+[INFO] 21:04:45: copied Node 0x5594ddb63c20 to Node 0x5594ddb63da0
+[INFO] 21:04:45: created Node 0x5594ddb63ef0
+[INFO] 21:04:45: copied Node 0x5594ddb63bf0 to Node 0x5594ddb63ef0
+[INFO] 21:04:45: created Node 0x5594ddb63f20
+[INFO] 21:04:45: created Node 0x5594ddb63f50
+[INFO] 21:04:45: created Node 0x5594ddb63f80
+[INFO] 21:04:45: created Node 0x5594ddb63fb0
+[INFO] 21:04:45: copied Node 0x5594ddb63dd0 to Node 0x5594ddb63fb0
+[INFO] 21:04:45: created Node 0x5594ddb63fe0
+[INFO] 21:04:45: created Node 0x5594ddb64010
+[INFO] 21:04:45: copied Node 0x5594ddb63e30 to Node 0x5594ddb64010
+[INFO] 21:04:45: created Node 0x5594ddb64040
+[INFO] 21:04:45: created Node 0x5594ddb64070
+[INFO] 21:04:45: copied Node 0x5594ddb63e90 to Node 0x5594ddb64070
+[INFO] 21:04:45: created Node 0x5594ddb640a0
+[INFO] 21:04:45: copied Node 0x5594ddb63ec0 to Node 0x5594ddb640a0
+[INFO] 21:04:45: copied Node 0x5594ddb63e60 to Node 0x5594ddb64040
+[INFO] 21:04:45: copied Node 0x5594ddb63e00 to Node 0x5594ddb63fe0
+[INFO] 21:04:45: copied Node 0x5594ddb63da0 to Node 0x5594ddb63f80
+[INFO] 21:04:45: created Node 0x5594ddb640d0
+[INFO] 21:04:45: copied Node 0x5594ddb63ef0 to Node 0x5594ddb640d0
+[INFO] 21:04:45: copied Node 0x5594ddb63d70 to Node 0x5594ddb63f50
+[INFO] 21:04:45: created Node 0x5594ddb64100
+[INFO] 21:04:45: copied Node 0x5594ddb63260 to Node 0x5594ddb64100
+[INFO] 21:04:45: created Node 0x5594ddb64130
+[INFO] 21:04:45: created Node 0x5594ddb64160
+[INFO] 21:04:45: created Node 0x5594ddb64190
+[INFO] 21:04:45: copied Node 0x5594ddb64130 to Node 0x5594ddb64190
+[INFO] 21:04:45: created Node 0x5594ddb641c0
+[INFO] 21:04:45: created Node 0x5594ddb641f0
+[INFO] 21:04:45: copied Node 0x5594ddb632c0 to Node 0x5594ddb641f0
+[INFO] 21:04:45: created Node 0x5594ddb64220
+[INFO] 21:04:45: copied Node 0x5594ddb632f0 to Node 0x5594ddb64220
+[INFO] 21:04:45: copied Node 0x5594ddb63290 to Node 0x5594ddb641c0
+[INFO] 21:04:45: created Node 0x5594ddb64250
+[INFO] 21:04:45: created Node 0x5594ddb64280
+[INFO] 21:04:45: created Node 0x5594ddb642b0
+[INFO] 21:04:45: copied Node 0x5594ddb64190 to Node 0x5594ddb642b0
+[INFO] 21:04:45: created Node 0x5594ddb642e0
+[INFO] 21:04:45: created Node 0x5594ddb64310
+[INFO] 21:04:45: copied Node 0x5594ddb641f0 to Node 0x5594ddb64310
+[INFO] 21:04:45: created Node 0x5594ddb64340
+[INFO] 21:04:45: copied Node 0x5594ddb64220 to Node 0x5594ddb64340
+[INFO] 21:04:45: copied Node 0x5594ddb641c0 to Node 0x5594ddb642e0
+[INFO] 21:04:45: copied Node 0x5594ddb64160 to Node 0x5594ddb64280
+[INFO] 21:04:45: created Node 0x5594ddb64370
+[INFO] 21:04:45: created Node 0x5594ddb643a0
+[INFO] 21:04:45: created Node 0x5594ddb643d0
+[INFO] 21:04:45: created Node 0x5594ddb64400
+[INFO] 21:04:45: copied Node 0x5594ddb63fb0 to Node 0x5594ddb64400
+[INFO] 21:04:45: created Node 0x5594ddb64430
+[INFO] 21:04:45: created Node 0x5594ddb64460
+[INFO] 21:04:45: copied Node 0x5594ddb64010 to Node 0x5594ddb64460
+[INFO] 21:04:45: created Node 0x5594ddb64490
+[INFO] 21:04:45: created Node 0x5594ddb644c0
+[INFO] 21:04:45: copied Node 0x5594ddb64070 to Node 0x5594ddb644c0
+[INFO] 21:04:45: created Node 0x5594ddb644f0
+[INFO] 21:04:45: copied Node 0x5594ddb640a0 to Node 0x5594ddb644f0
+[INFO] 21:04:45: copied Node 0x5594ddb64040 to Node 0x5594ddb64490
+[INFO] 21:04:45: copied Node 0x5594ddb63fe0 to Node 0x5594ddb64430
+[INFO] 21:04:45: copied Node 0x5594ddb63f80 to Node 0x5594ddb643d0
+[INFO] 21:04:45: created Node 0x5594ddb64520
+[INFO] 21:04:45: copied Node 0x5594ddb640d0 to Node 0x5594ddb64520
+[INFO] 21:04:45: copied Node 0x5594ddb63f50 to Node 0x5594ddb643a0
+[INFO] 21:04:45: created Node 0x5594ddb64550
+[INFO] 21:04:45: copied Node 0x5594ddb64100 to Node 0x5594ddb64550
+[INFO] 21:04:45: copied Node 0x5594ddb63f20 to Node 0x5594ddb64370
+[INFO] 21:04:45: created Node 0x5594ddb64580
+[INFO] 21:04:45: created Node 0x5594ddb645b0
+[INFO] 21:04:45: created Node 0x5594ddb645e0
+[INFO] 21:04:45: created Node 0x5594ddb64610
+[INFO] 21:04:45: copied Node 0x5594ddb642b0 to Node 0x5594ddb64610
+[INFO] 21:04:45: created Node 0x5594ddb64640
+[INFO] 21:04:45: created Node 0x5594ddb64670
+[INFO] 21:04:45: copied Node 0x5594ddb64310 to Node 0x5594ddb64670
+[INFO] 21:04:45: created Node 0x5594ddb646a0
+[INFO] 21:04:45: copied Node 0x5594ddb64340 to Node 0x5594ddb646a0
+[INFO] 21:04:45: copied Node 0x5594ddb642e0 to Node 0x5594ddb64640
+[INFO] 21:04:45: copied Node 0x5594ddb64280 to Node 0x5594ddb645e0
+[INFO] 21:04:45: created Node 0x5594ddb646d0
+[INFO] 21:04:45: created Node 0x5594ddb64700
+[INFO] 21:04:45: created Node 0x5594ddb64730
+[INFO] 21:04:45: created Node 0x5594ddb64760
+[INFO] 21:04:45: copied Node 0x5594ddb64400 to Node 0x5594ddb64760
+[INFO] 21:04:45: created Node 0x5594ddb64790
+[INFO] 21:04:45: created Node 0x5594ddb647c0
+[INFO] 21:04:45: copied Node 0x5594ddb64460 to Node 0x5594ddb647c0
+[INFO] 21:04:45: created Node 0x5594ddb647f0
+[INFO] 21:04:45: created Node 0x5594ddb64820
+[INFO] 21:04:45: copied Node 0x5594ddb644c0 to Node 0x5594ddb64820
+[INFO] 21:04:45: created Node 0x5594ddb64850
+[INFO] 21:04:45: copied Node 0x5594ddb644f0 to Node 0x5594ddb64850
+[INFO] 21:04:45: copied Node 0x5594ddb64490 to Node 0x5594ddb647f0
+[INFO] 21:04:45: copied Node 0x5594ddb64430 to Node 0x5594ddb64790
+[INFO] 21:04:45: copied Node 0x5594ddb643d0 to Node 0x5594ddb64730
+[INFO] 21:04:45: created Node 0x5594ddb64880
+[INFO] 21:04:45: copied Node 0x5594ddb64520 to Node 0x5594ddb64880
+[INFO] 21:04:45: copied Node 0x5594ddb643a0 to Node 0x5594ddb64700
+[INFO] 21:04:45: created Node 0x5594ddb648b0
+[INFO] 21:04:45: copied Node 0x5594ddb64550 to Node 0x5594ddb648b0
+[INFO] 21:04:45: copied Node 0x5594ddb64370 to Node 0x5594ddb646d0
+[INFO] 21:04:45: copied Node 0x5594ddb64250 to Node 0x5594ddb645b0
+[INFO] 21:04:45: created Node 0x5594ddb648e0
+[INFO] 21:04:45: created Node 0x5594ddb64910
+[INFO] 21:04:45: created Node 0x5594ddb64940
+[INFO] 21:04:45: copied Node 0x5594ddb63950 to Node 0x5594ddb64940
+[INFO] 21:04:45: created Node 0x5594ddb64970
+[INFO] 21:04:45: copied Node 0x5594ddb63980 to Node 0x5594ddb64970
+[INFO] 21:04:45: copied Node 0x5594ddb63920 to Node 0x5594ddb64910
+[INFO] 21:04:45: created Node 0x5594ddb649a0
+[INFO] 21:04:45: created Node 0x5594ddb649d0
+[INFO] 21:04:45: copied Node 0x5594ddb639e0 to Node 0x5594ddb649d0
+[INFO] 21:04:45: created Node 0x5594ddb64a00
+[INFO] 21:04:45: copied Node 0x5594ddb63a10 to Node 0x5594ddb64a00
+[INFO] 21:04:45: copied Node 0x5594ddb639b0 to Node 0x5594ddb649a0
+[INFO] 21:04:45: copied Node 0x5594ddb638f0 to Node 0x5594ddb648e0
+[INFO] 21:04:45: created Node 0x5594ddb64a30
+[INFO] 21:04:45: created Node 0x5594ddb64a60
+[INFO] 21:04:45: created Node 0x5594ddb64a90
+[INFO] 21:04:45: created Node 0x5594ddb64ac0
+[INFO] 21:04:45: created Node 0x5594ddb64af0
+[INFO] 21:04:45: copied Node 0x5594ddb64610 to Node 0x5594ddb64af0
+[INFO] 21:04:45: created Node 0x5594ddb64b20
+[INFO] 21:04:45: created Node 0x5594ddb64b50
+[INFO] 21:04:45: copied Node 0x5594ddb64670 to Node 0x5594ddb64b50
+[INFO] 21:04:45: created Node 0x5594ddb64b80
+[INFO] 21:04:45: copied Node 0x5594ddb646a0 to Node 0x5594ddb64b80
+[INFO] 21:04:45: copied Node 0x5594ddb64640 to Node 0x5594ddb64b20
+[INFO] 21:04:45: copied Node 0x5594ddb645e0 to Node 0x5594ddb64ac0
+[INFO] 21:04:45: created Node 0x5594ddb64bb0
+[INFO] 21:04:45: created Node 0x5594ddb64be0
+[INFO] 21:04:45: created Node 0x5594ddb64c10
+[INFO] 21:04:45: created Node 0x5594ddb64c40
+[INFO] 21:04:45: copied Node 0x5594ddb64760 to Node 0x5594ddb64c40
+[INFO] 21:04:45: created Node 0x5594ddb64c70
+[INFO] 21:04:45: created Node 0x5594ddb64ca0
+[INFO] 21:04:45: copied Node 0x5594ddb647c0 to Node 0x5594ddb64ca0
+[INFO] 21:04:45: created Node 0x5594ddb64cd0
+[INFO] 21:04:45: created Node 0x5594ddb64d00
+[INFO] 21:04:45: copied Node 0x5594ddb64820 to Node 0x5594ddb64d00
+[INFO] 21:04:45: created Node 0x5594ddb64d30
+[INFO] 21:04:45: copied Node 0x5594ddb64850 to Node 0x5594ddb64d30
+[INFO] 21:04:45: copied Node 0x5594ddb647f0 to Node 0x5594ddb64cd0
+[INFO] 21:04:45: copied Node 0x5594ddb64790 to Node 0x5594ddb64c70
+[INFO] 21:04:45: copied Node 0x5594ddb64730 to Node 0x5594ddb64c10
+[INFO] 21:04:45: created Node 0x5594ddb64d60
+[INFO] 21:04:45: copied Node 0x5594ddb64880 to Node 0x5594ddb64d60
+[INFO] 21:04:45: copied Node 0x5594ddb64700 to Node 0x5594ddb64be0
+[INFO] 21:04:45: created Node 0x5594ddb64d90
+[INFO] 21:04:45: copied Node 0x5594ddb648b0 to Node 0x5594ddb64d90
+[INFO] 21:04:45: copied Node 0x5594ddb646d0 to Node 0x5594ddb64bb0
+[INFO] 21:04:45: copied Node 0x5594ddb645b0 to Node 0x5594ddb64a90
+[INFO] 21:04:45: created Node 0x5594ddb64dc0
+[INFO] 21:04:45: created Node 0x5594ddb64df0
+[INFO] 21:04:45: created Node 0x5594ddb64e20
+[INFO] 21:04:45: copied Node 0x5594ddb64940 to Node 0x5594ddb64e20
+[INFO] 21:04:45: created Node 0x5594ddb64e50
+[INFO] 21:04:45: copied Node 0x5594ddb64970 to Node 0x5594ddb64e50
+[INFO] 21:04:45: copied Node 0x5594ddb64910 to Node 0x5594ddb64df0
+[INFO] 21:04:45: created Node 0x5594ddb64e80
+[INFO] 21:04:45: created Node 0x5594ddb64eb0
+[INFO] 21:04:45: copied Node 0x5594ddb649d0 to Node 0x5594ddb64eb0
+[INFO] 21:04:45: created Node 0x5594ddb64ee0
+[INFO] 21:04:45: copied Node 0x5594ddb64a00 to Node 0x5594ddb64ee0
+[INFO] 21:04:45: copied Node 0x5594ddb649a0 to Node 0x5594ddb64e80
+[INFO] 21:04:45: copied Node 0x5594ddb648e0 to Node 0x5594ddb64dc0
+[INFO] 21:04:45: copied Node 0x5594ddb64580 to Node 0x5594ddb64a60
+[INFO] 21:04:45: created Node 0x5594ddb64f10
+[INFO] 21:04:45: created Node 0x5594ddb64f40
+[INFO] 21:04:45: copied Node 0x5594ddb63500 to Node 0x5594ddb64f40
+[INFO] 21:04:45: created Node 0x5594ddb64f70
+[INFO] 21:04:45: copied Node 0x5594ddb635f0 to Node 0x5594ddb64f70
+[INFO] 21:04:45: copied Node 0x5594ddb634d0 to Node 0x5594ddb64f10
+[INFO] 21:04:45: created Node 0x5594ddb64fa0
+[INFO] 21:04:45: created Node 0x5594ddb64fd0
+[INFO] 21:04:45: created Node 0x5594ddb65000
+[INFO] 21:04:45: created Node 0x5594ddb65030
+[INFO] 21:04:45: created Node 0x5594ddb65060
+[INFO] 21:04:45: created Node 0x5594ddb65090
+[INFO] 21:04:45: copied Node 0x5594ddb64af0 to Node 0x5594ddb65090
+[INFO] 21:04:45: created Node 0x5594ddb650c0
+[INFO] 21:04:45: created Node 0x5594ddb650f0
+[INFO] 21:04:45: copied Node 0x5594ddb64b50 to Node 0x5594ddb650f0
+[INFO] 21:04:45: created Node 0x5594ddb65120
+[INFO] 21:04:45: copied Node 0x5594ddb64b80 to Node 0x5594ddb65120
+[INFO] 21:04:45: copied Node 0x5594ddb64b20 to Node 0x5594ddb650c0
+[INFO] 21:04:45: copied Node 0x5594ddb64ac0 to Node 0x5594ddb65060
+[INFO] 21:04:45: created Node 0x5594ddb65150
+[INFO] 21:04:45: created Node 0x5594ddb65180
+[INFO] 21:04:45: created Node 0x5594ddb651b0
+[INFO] 21:04:45: created Node 0x5594ddb651e0
+[INFO] 21:04:45: copied Node 0x5594ddb64c40 to Node 0x5594ddb651e0
+[INFO] 21:04:45: created Node 0x5594ddb65210
+[INFO] 21:04:45: created Node 0x5594ddb65240
+[INFO] 21:04:45: copied Node 0x5594ddb64ca0 to Node 0x5594ddb65240
+[INFO] 21:04:45: created Node 0x5594ddb65270
+[INFO] 21:04:45: created Node 0x5594ddb652a0
+[INFO] 21:04:45: copied Node 0x5594ddb64d00 to Node 0x5594ddb652a0
+[INFO] 21:04:45: created Node 0x5594ddb652d0
+[INFO] 21:04:45: copied Node 0x5594ddb64d30 to Node 0x5594ddb652d0
+[INFO] 21:04:45: copied Node 0x5594ddb64cd0 to Node 0x5594ddb65270
+[INFO] 21:04:45: copied Node 0x5594ddb64c70 to Node 0x5594ddb65210
+[INFO] 21:04:45: copied Node 0x5594ddb64c10 to Node 0x5594ddb651b0
+[INFO] 21:04:45: created Node 0x5594ddb65300
+[INFO] 21:04:45: copied Node 0x5594ddb64d60 to Node 0x5594ddb65300
+[INFO] 21:04:45: copied Node 0x5594ddb64be0 to Node 0x5594ddb65180
+[INFO] 21:04:45: created Node 0x5594ddb65330
+[INFO] 21:04:45: copied Node 0x5594ddb64d90 to Node 0x5594ddb65330
+[INFO] 21:04:45: copied Node 0x5594ddb64bb0 to Node 0x5594ddb65150
+[INFO] 21:04:45: copied Node 0x5594ddb64a90 to Node 0x5594ddb65030
+[INFO] 21:04:45: created Node 0x5594ddb65360
+[INFO] 21:04:45: created Node 0x5594ddb65390
+[INFO] 21:04:45: created Node 0x5594ddb653c0
+[INFO] 21:04:45: copied Node 0x5594ddb64e20 to Node 0x5594ddb653c0
+[INFO] 21:04:45: created Node 0x5594ddb653f0
+[INFO] 21:04:45: copied Node 0x5594ddb64e50 to Node 0x5594ddb653f0
+[INFO] 21:04:45: copied Node 0x5594ddb64df0 to Node 0x5594ddb65390
+[INFO] 21:04:45: created Node 0x5594ddb65420
+[INFO] 21:04:45: created Node 0x5594ddb65450
+[INFO] 21:04:45: copied Node 0x5594ddb64eb0 to Node 0x5594ddb65450
+[INFO] 21:04:45: created Node 0x5594ddb65480
+[INFO] 21:04:45: copied Node 0x5594ddb64ee0 to Node 0x5594ddb65480
+[INFO] 21:04:45: copied Node 0x5594ddb64e80 to Node 0x5594ddb65420
+[INFO] 21:04:45: copied Node 0x5594ddb64dc0 to Node 0x5594ddb65360
+[INFO] 21:04:45: copied Node 0x5594ddb64a60 to Node 0x5594ddb65000
+[INFO] 21:04:45: created Node 0x5594ddb654b0
+[INFO] 21:04:45: created Node 0x5594ddb654e0
+[INFO] 21:04:45: copied Node 0x5594ddb64f40 to Node 0x5594ddb654e0
+[INFO] 21:04:45: created Node 0x5594ddb65510
+[INFO] 21:04:45: copied Node 0x5594ddb64f70 to Node 0x5594ddb65510
+[INFO] 21:04:45: copied Node 0x5594ddb64f10 to Node 0x5594ddb654b0
+[INFO] 21:04:45: copied Node 0x5594ddb64a30 to Node 0x5594ddb64fd0
+[INFO] 21:04:45: created Node 0x5594ddb65540
+[INFO] 21:04:45: created Node 0x5594ddb65570
+[INFO] 21:04:45: created Node 0x5594ddb655a0
+[INFO] 21:04:45: copied Node 0x5594ddb636e0 to Node 0x5594ddb655a0
+[INFO] 21:04:45: created Node 0x5594ddb655d0
+[INFO] 21:04:45: created Node 0x5594ddb65600
+[INFO] 21:04:45: copied Node 0x5594ddb63740 to Node 0x5594ddb65600
+[INFO] 21:04:45: created Node 0x5594ddb65630
+[INFO] 21:04:45: copied Node 0x5594ddb63770 to Node 0x5594ddb65630
+[INFO] 21:04:45: copied Node 0x5594ddb63710 to Node 0x5594ddb655d0
+[INFO] 21:04:45: copied Node 0x5594ddb636b0 to Node 0x5594ddb65570
+[INFO] 21:04:45: created Node 0x5594ddb65660
+[INFO] 21:04:45: created Node 0x5594ddb65690
+[INFO] 21:04:45: created Node 0x5594ddb656c0
+[INFO] 21:04:45: copied Node 0x5594ddb63800 to Node 0x5594ddb656c0
+[INFO] 21:04:45: created Node 0x5594ddb656f0
+[INFO] 21:04:45: copied Node 0x5594ddb63830 to Node 0x5594ddb656f0
+[INFO] 21:04:45: copied Node 0x5594ddb637d0 to Node 0x5594ddb65690
+[INFO] 21:04:45: created Node 0x5594ddb65720
+[INFO] 21:04:45: created Node 0x5594ddb65750
+[INFO] 21:04:45: copied Node 0x5594ddb63890 to Node 0x5594ddb65750
+[INFO] 21:04:45: created Node 0x5594ddb65780
+[INFO] 21:04:45: copied Node 0x5594ddb638c0 to Node 0x5594ddb65780
+[INFO] 21:04:45: copied Node 0x5594ddb63860 to Node 0x5594ddb65720
+[INFO] 21:04:45: copied Node 0x5594ddb637a0 to Node 0x5594ddb65660
+[INFO] 21:04:45: copied Node 0x5594ddb63680 to Node 0x5594ddb65540
+[INFO] 21:04:45: destruct Node 0x5594ddb63260
+[INFO] 21:04:45: destruct Node 0x5594ddb632c0
+[INFO] 21:04:45: destruct Node 0x5594ddb632f0
+[INFO] 21:04:45: destruct Node 0x5594ddb63290
+[INFO] 21:04:45: destruct Node 0x5594ddb63230
+[INFO] 21:04:45: destruct Node 0x5594ddb63500
+[INFO] 21:04:45: destruct Node 0x5594ddb635f0
+[INFO] 21:04:45: destruct Node 0x5594ddb634d0
+[INFO] 21:04:45: destruct Node 0x5594ddb63200
+[INFO] 21:04:45: created Node 0x5594ddb63200
+[INFO] 21:04:45: destruct Node 0x5594ddb65090
+[INFO] 21:04:45: destruct Node 0x5594ddb650f0
+[INFO] 21:04:45: destruct Node 0x5594ddb65120
+[INFO] 21:04:45: destruct Node 0x5594ddb650c0
+[INFO] 21:04:45: destruct Node 0x5594ddb65060
+[INFO] 21:04:45: created Node 0x5594ddb65060
+[INFO] 21:04:45: created Node 0x5594ddb650c0
+[INFO] 21:04:45: created Node 0x5594ddb65120
+[INFO] 21:04:45: copied Node 0x5594ddb651e0 to Node 0x5594ddb65120
+[INFO] 21:04:45: created Node 0x5594ddb650f0
+[INFO] 21:04:45: created Node 0x5594ddb65090
+[INFO] 21:04:45: copied Node 0x5594ddb65240 to Node 0x5594ddb65090
+[INFO] 21:04:45: created Node 0x5594ddb634d0
+[INFO] 21:04:45: created Node 0x5594ddb635f0
+[INFO] 21:04:45: copied Node 0x5594ddb652a0 to Node 0x5594ddb635f0
+[INFO] 21:04:45: created Node 0x5594ddb63500
+[INFO] 21:04:45: copied Node 0x5594ddb652d0 to Node 0x5594ddb63500
+[INFO] 21:04:45: copied Node 0x5594ddb65270 to Node 0x5594ddb634d0
+[INFO] 21:04:45: copied Node 0x5594ddb65210 to Node 0x5594ddb650f0
+[INFO] 21:04:45: copied Node 0x5594ddb651b0 to Node 0x5594ddb650c0
+[INFO] 21:04:45: created Node 0x5594ddb63230
+[INFO] 21:04:45: copied Node 0x5594ddb65300 to Node 0x5594ddb63230
+[INFO] 21:04:45: copied Node 0x5594ddb65180 to Node 0x5594ddb65060
+[INFO] 21:04:45: destruct Node 0x5594ddb651e0
+[INFO] 21:04:45: destruct Node 0x5594ddb65240
+[INFO] 21:04:45: destruct Node 0x5594ddb652a0
+[INFO] 21:04:45: destruct Node 0x5594ddb652d0
+[INFO] 21:04:45: destruct Node 0x5594ddb65270
+[INFO] 21:04:45: destruct Node 0x5594ddb65210
+[INFO] 21:04:45: destruct Node 0x5594ddb651b0
+[INFO] 21:04:45: destruct Node 0x5594ddb65300
+[INFO] 21:04:45: destruct Node 0x5594ddb65180
+[INFO] 21:04:45: destruct Node 0x5594ddb65330
+[INFO] 21:04:45: destruct Node 0x5594ddb65150
+[INFO] 21:04:45: created Node 0x5594ddb65150
+[INFO] 21:04:45: created Node 0x5594ddb65330
+[INFO] 21:04:45: copied Node 0x5594ddb65120 to Node 0x5594ddb65330
+[INFO] 21:04:45: created Node 0x5594ddb65180
+[INFO] 21:04:45: created Node 0x5594ddb65300
+[INFO] 21:04:45: copied Node 0x5594ddb65090 to Node 0x5594ddb65300
+[INFO] 21:04:45: created Node 0x5594ddb651b0
+[INFO] 21:04:45: created Node 0x5594ddb65210
+[INFO] 21:04:45: copied Node 0x5594ddb635f0 to Node 0x5594ddb65210
+[INFO] 21:04:45: created Node 0x5594ddb65270
+[INFO] 21:04:45: copied Node 0x5594ddb63500 to Node 0x5594ddb65270
+[INFO] 21:04:45: copied Node 0x5594ddb634d0 to Node 0x5594ddb651b0
+[INFO] 21:04:45: copied Node 0x5594ddb650f0 to Node 0x5594ddb65180
+[INFO] 21:04:45: copied Node 0x5594ddb650c0 to Node 0x5594ddb65150
+[INFO] 21:04:45: destruct Node 0x5594ddb65120
+[INFO] 21:04:45: destruct Node 0x5594ddb65090
+[INFO] 21:04:45: destruct Node 0x5594ddb635f0
+[INFO] 21:04:45: destruct Node 0x5594ddb63500
+[INFO] 21:04:45: destruct Node 0x5594ddb634d0
+[INFO] 21:04:45: destruct Node 0x5594ddb650f0
+[INFO] 21:04:45: destruct Node 0x5594ddb650c0
+[INFO] 21:04:45: destruct Node 0x5594ddb63230
+[INFO] 21:04:45: destruct Node 0x5594ddb65060
+[INFO] 21:04:45: created Node 0x5594ddb65060
+[INFO] 21:04:45: destruct Node 0x5594ddb651b0
+[INFO] 21:04:45: destruct Node 0x5594ddb65210
+[INFO] 21:04:45: destruct Node 0x5594ddb65270
+[INFO] 21:04:45: created Node 0x5594ddb65270
+[INFO] 21:04:45: copied Node 0x5594ddb65300 to Node 0x5594ddb65270
+[INFO] 21:04:45: destruct Node 0x5594ddb65180
+[INFO] 21:04:45: destruct Node 0x5594ddb65300
+[INFO] 21:04:45: destruct Node 0x5594ddb65060
+[INFO] 21:04:45: created Node 0x5594ddb65060
+[INFO] 21:04:45: created Node 0x5594ddb65300
+[INFO] 21:04:45: created Node 0x5594ddb65180
+[INFO] 21:04:45: copied Node 0x5594ddb653c0 to Node 0x5594ddb65180
+[INFO] 21:04:45: created Node 0x5594ddb65210
+[INFO] 21:04:45: copied Node 0x5594ddb653f0 to Node 0x5594ddb65210
+[INFO] 21:04:45: copied Node 0x5594ddb65390 to Node 0x5594ddb65300
+[INFO] 21:04:45: created Node 0x5594ddb651b0
+[INFO] 21:04:45: destruct Node 0x5594ddb653c0
+[INFO] 21:04:45: destruct Node 0x5594ddb653f0
+[INFO] 21:04:45: destruct Node 0x5594ddb65390
+[INFO] 21:04:45: destruct Node 0x5594ddb65450
+[INFO] 21:04:45: destruct Node 0x5594ddb65480
+[INFO] 21:04:45: destruct Node 0x5594ddb65420
+[INFO] 21:04:45: destruct Node 0x5594ddb65360
+[INFO] 21:04:45: created Node 0x5594ddb65360
+[INFO] 21:04:45: destruct Node 0x5594ddb656c0
+[INFO] 21:04:45: destruct Node 0x5594ddb656f0
+[INFO] 21:04:45: destruct Node 0x5594ddb65690
+[INFO] 21:04:45: destruct Node 0x5594ddb65660
+[INFO] 21:04:45: destruct Node 0x5594ddb65360
+[INFO] 21:04:45: created Node 0x5594ddb65360
+[INFO] 21:04:45: destruct Node 0x5594ddb65750
+[INFO] 21:04:45: destruct Node 0x5594ddb65780
+[INFO] 21:04:45: destruct Node 0x5594ddb65720
+[INFO] 21:04:45: successful diff Expr 0x7ffc70a931c8
+[ERROR] 21:04:45: Node 0x2f has invalid value
+[ERROR] 21:04:45: Node 0x2f has invalid value
+[INFO] 21:04:45: destruct Node 0x5594ddb63200
+[INFO] 21:04:45: destruct Node 0x5594ddb65330
+[INFO] 21:04:45: destruct Node 0x5594ddb65270
+[INFO] 21:04:45: destruct Node 0x5594ddb65150
+[INFO] 21:04:45: destruct Node 0x5594ddb65030
+[INFO] 21:04:45: destruct Node 0x5594ddb65180
+[INFO] 21:04:45: destruct Node 0x5594ddb65210
+[INFO] 21:04:45: destruct Node 0x5594ddb65300
+[INFO] 21:04:45: destruct Node 0x5594ddb651b0
+[INFO] 21:04:45: destruct Node 0x5594ddb65060
+[INFO] 21:04:45: destruct Node 0x5594ddb65000
+[INFO] 21:04:45: destruct Node 0x5594ddb654e0
+[INFO] 21:04:45: destruct Node 0x5594ddb65510
+[INFO] 21:04:45: destruct Node 0x5594ddb654b0
+[INFO] 21:04:45: destruct Node 0x5594ddb64fd0
+[INFO] 21:04:45: destruct Node 0x5594ddb655a0
+[INFO] 21:04:45: destruct Node 0x5594ddb65600
+[INFO] 21:04:45: destruct Node 0x5594ddb65630
+[INFO] 21:04:45: destruct Node 0x5594ddb655d0
+[INFO] 21:04:45: destruct Node 0x5594ddb65570
+[INFO] 21:04:45: destruct Node 0x5594ddb65360
+[INFO] 21:04:45: destruct Node 0x5594ddb65540
+[INFO] 21:04:45: destruct Node 0x5594ddb64fa0
+[INFO] 21:04:45: destruct Node 0x5594ddb62d20
+[INFO] 21:04:46: destruct Node 0x5594ddb60f40
+[INFO] 21:04:46: destruct Node 0x5594ddb60f70
+[INFO] 21:04:46: destruct Node 0x5594ddb60f10
+[INFO] 21:04:46: destruct Node 0x5594ddb60df0
+[INFO] 21:04:46: destruct Node 0x5594ddb605c0
+[INFO] 21:04:46: Logging closed
